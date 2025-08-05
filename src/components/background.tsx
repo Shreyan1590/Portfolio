@@ -69,6 +69,7 @@ const StarryBackground = () => {
                 .shooting-star {
                     position: absolute;
                     height: 2px;
+                    width: 150px;
                     background: linear-gradient(-45deg, hsl(var(--primary)), rgba(0, 0, 255, 0));
                     border-radius: 999px;
                     filter: drop-shadow(0 0 6px hsl(var(--primary)));
@@ -77,11 +78,11 @@ const StarryBackground = () => {
 
                 @keyframes shooting {
                   0% {
-                    transform: translateX(0) translateY(0) rotate(45deg);
+                    transform: translateX(100vw) translateY(-50vh) rotate(225deg);
                     opacity: 1;
                   }
                   100% {
-                    transform: translateX(-150vw) translateY(150vh) rotate(45deg);
+                    transform: translateX(-50vw) translateY(100vh) rotate(225deg);
                     opacity: 0;
                   }
                 }
