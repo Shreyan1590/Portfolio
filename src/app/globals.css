@@ -57,6 +57,11 @@
   body {
     @apply bg-background text-foreground;
     scroll-behavior: smooth;
+    background-color: #0c0a1f;
+    background-image: 
+      radial-gradient(ellipse at top, transparent 0%, #0c0a1f), 
+      radial-gradient(ellipse at bottom, #0c0a1f, transparent 100%);
+    overflow-x: hidden;
   }
   .prose table {
     @apply w-full my-6;
@@ -79,4 +84,61 @@
   .prose li {
     @apply pb-2;
   }
+}
+
+/* Starfield Background */
+@layer base {
+  .stars, .stars2, .stars3 {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+  }
+  
+  .stars {
+    background: transparent url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%"><defs><pattern id="p" width="300" height="300" patternUnits="userSpaceOnUse"><circle cx="50" cy="50" r="1" fill="hsl(var(--primary-foreground)/0.4)"/><circle cx="100" cy="200" r="1" fill="hsl(var(--primary-foreground)/0.4)"/><circle cx="250" cy="150" r="1.5" fill="hsl(var(--primary-foreground)/0.4)"/></pattern></defs><rect width="100%" height="100%" fill="url(%23p)"/></svg>');
+    animation: move-stars 150s linear infinite;
+  }
+  
+  .stars2 {
+    background: transparent url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%"><defs><pattern id="p2" width="500" height="500" patternUnits="userSpaceOnUse"><circle cx="250" cy="100" r="1.5" fill="hsl(var(--accent-foreground)/0.3)"/><circle cx="50" cy="300" r="1" fill="hsl(var(--accent-foreground)/0.3)"/><circle cx="450" cy="450" r="2" fill="hsl(var(--accent-foreground)/0.3)"/></pattern></defs><rect width="100%" height="100%" fill="url(%23p2)"/></svg>');
+    animation: move-stars 200s linear infinite;
+  }
+
+  .stars3 {
+    background: transparent url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%"><defs><pattern id="p3" width="700" height="700" patternUnits="userSpaceOnUse"><circle cx="150" cy="500" r="2" fill="hsl(var(--primary-foreground)/0.2)"/><circle cx="600" cy="200" r="1.5" fill="hsl(var(--primary-foreground)/0.2)"/><circle cx="350" cy="350" r="1" fill="hsl(var(--primary-foreground)/0.2)"/></pattern></defs><rect width="100%" height="100%" fill="url(%23p3)"/></svg>');
+    animation: move-stars 250s linear infinite;
+  }
+  
+  @keyframes move-stars {
+    from { transform: translateY(0); }
+    to { transform: translateY(-1000px); }
+  }
+
+  /* Shooting Stars */
+  .shooting-star {
+    position: absolute;
+    height: 2px;
+    background: linear-gradient(-45deg, hsl(var(--primary)), rgba(0, 0, 255, 0));
+    border-radius: 999px;
+    filter: drop-shadow(0 0 6px hsl(var(--primary)));
+    animation: tail 3s ease-in-out infinite, shooting 3s ease-in-out infinite;
+  }
+  
+  @keyframes tail {
+    0% { width: 0; }
+    30% { width: 100px; }
+    100% { width: 0; }
+  }
+  
+  @keyframes shooting {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(100vw); }
+  }
+  
+  .shooting-star:nth-child(1) { top: 20%; left: -50%; animation-delay: 1.3s; }
+  .shooting-star:nth-child(2) { top: 50%; left: -50%; animation-delay: 2.8s; }
+  .shooting-star:nth-child(3) { top: 80%; left: -50%; animation-delay: 0.6s; }
 }
