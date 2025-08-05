@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
@@ -8,10 +8,12 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
-import { Bot, Dumbbell, Loader2, Sparkles } from "lucide-react";
+import { Bot, Dumbbell, Loader2, Sparkles, Flame, Apple, Fish } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { ProjectPageHeader } from "@/components/projects/project-page-header";
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
+import { useTypewriter } from "@/hooks/use-typewriter";
 
 const formSchema = z.object({
   goal: z.string().min(1, "Please select a fitness goal."),
@@ -21,22 +23,33 @@ const formSchema = z.object({
 
 type FormValues = z.infer<typeof formSchema>;
 
-const hardcodedPlans: Record<string, Record<string, { workout: string[], meals: Record<string, string> }>> = {
+interface WorkoutExercise {
+  name: string;
+  sets: string;
+  reps: string;
+  rest: string;
+}
+
+interface Plan {
+  workout: WorkoutExercise[];
+  cardio?: string;
+  meals: {
+    breakfast: string;
+    lunch: string;
+    dinner: string;
+  };
+}
+
+const hardcodedPlans: Record<string, Record<string, Plan>> = {
   "weight-loss": {
     beginner: {
       workout: [
-        "Warm-up (5 min): Light cardio (jogging in place)",
-        "Circuit 1 (2 rounds):",
-        "  - Bodyweight Squats (15 reps)",
-        "  - Push-ups (on knees if needed, 10 reps)",
-        "  - Plank (30 seconds)",
-        "  - Jumping Jacks (30 seconds)",
-        "Rest (1 min)",
-        "Circuit 2 (2 rounds):",
-        "  - Lunges (10 reps per leg)",
-        "  - Glute Bridges (15 reps)",
-        "Cool-down (5 min): Stretching",
+        { name: "Bodyweight Squats", sets: "3", reps: "15", rest: "60s" },
+        { name: "Push-ups (on knees)", sets: "3", reps: "10", rest: "60s" },
+        { name: "Plank", sets: "3", reps: "30s hold", rest: "60s" },
+        { name: "Jumping Jacks", sets: "3", reps: "30s", rest: "60s" },
       ],
+      cardio: "20 minutes of brisk walking",
       meals: {
         breakfast: "Oatmeal with berries and a sprinkle of nuts.",
         lunch: "Grilled chicken salad with mixed greens and a light vinaigrette.",
@@ -44,38 +57,27 @@ const hardcodedPlans: Record<string, Record<string, { workout: string[], meals: 
       },
     },
     intermediate: {
-       workout: [
-        "Warm-up (5 min): Jump rope",
-        "Circuit 1 (3 rounds):",
-        "  - Goblet Squats (12 reps)",
-        "  - Standard Push-ups (15 reps)",
-        "  - Russian Twists (20 reps per side)",
-        "  - Burpees (10 reps)",
-        "Rest (1 min)",
-        "Circuit 2 (3 rounds):",
-        "  - Dumbbell Rows (12 reps per arm)",
-        "  - High Knees (45 seconds)",
-        "Cool-down (5 min): Full-body stretching",
+      workout: [
+        { name: "Goblet Squats", sets: "3", reps: "12", rest: "60s" },
+        { name: "Dumbbell Bench Press", sets: "3", reps: "12", rest: "60s" },
+        { name: "Russian Twists", sets: "3", reps: "20 (total)", rest: "60s" },
+        { name: "Burpees", sets: "3", reps: "10", rest: "90s" },
       ],
-      meals: {
+      cardio: "30 minutes on the elliptical",
+       meals: {
         breakfast: "Scrambled eggs with spinach and whole-wheat toast.",
         lunch: "Lean turkey wrap with avocado and vegetables.",
         dinner: "Stir-fried tofu with brown rice and a variety of colorful peppers.",
       },
     },
-    advanced: {
+     advanced: {
       workout: [
-        "Warm-up (5 min): Dynamic stretches (leg swings, arm circles)",
-        "HIIT (5 rounds):",
-        "  - Kettlebell Swings (45 sec work, 15 sec rest)",
-        "  - Box Jumps (45 sec work, 15 sec rest)",
-        "  - Pull-ups (max reps)",
-        "Rest (2 min)",
-        "Core Circuit (3 rounds):",
-        "  - Hanging Leg Raises (15 reps)",
-        "  - Ab Rollouts (12 reps)",
-        "Cool-down (10 min): Foam rolling and deep stretching",
+        { name: "Barbell Squats", sets: "4", reps: "8", rest: "90s" },
+        { name: "Pull-ups", sets: "4", reps: "To failure", rest: "90s" },
+        { name: "Kettlebell Swings", sets: "4", reps: "15", rest: "60s" },
+        { name: "Box Jumps", sets: "3", reps: "10", rest: "90s" },
       ],
+      cardio: "20 minutes of High-Intensity Interval Training (HIIT) on a treadmill.",
       meals: {
         breakfast: "Greek yogurt with granola and a scoop of protein powder.",
         lunch: "Quinoa bowl with black beans, corn, grilled steak, and salsa.",
@@ -83,19 +85,15 @@ const hardcodedPlans: Record<string, Record<string, { workout: string[], meals: 
       },
     }
   },
-  "muscle-gain": {
-     beginner: {
+   "muscle-gain": {
+    beginner: {
       workout: [
-        "Warm-up (5 min): Light cardio",
-        "Full Body Strength (3 sets):",
-        "  - Dumbbell Squats (10 reps)",
-        "  - Dumbbell Bench Press (10 reps)",
-        "  - Dumbbell Rows (10 reps per arm)",
-        "  - Bicep Curls (12 reps)",
-        "  - Tricep Dips (on bench, 10 reps)",
-        "Cool-down (5 min): Stretching",
+        { name: "Dumbbell Squats", sets: "3", reps: "10", rest: "60s" },
+        { name: "Dumbbell Bench Press", sets: "3", reps: "10", rest: "60s" },
+        { name: "Dumbbell Rows", sets: "3", reps: "10/arm", rest: "60s" },
+        { name: "Bicep Curls", sets: "3", reps: "12", rest: "45s" },
       ],
-      meals: {
+       meals: {
         breakfast: "Protein shake with banana and oats.",
         lunch: "Chicken breast with brown rice and broccoli.",
         dinner: "Ground beef with pasta and a side salad.",
@@ -103,16 +101,12 @@ const hardcodedPlans: Record<string, Record<string, { workout: string[], meals: 
     },
     intermediate: {
       workout: [
-        "Warm-up (5 min): Dynamic stretching",
-        "Upper Body Focus (3 sets):",
-        "  - Barbell Bench Press (8 reps)",
-        "  - Bent-Over Rows (8 reps)",
-        "  - Overhead Press (10 reps)",
-        "  - Pull-ups (to failure)",
-        "  - Lateral Raises (12 reps)",
-        "Cool-down (5 min): Stretching",
+        { name: "Barbell Bench Press", sets: "4", reps: "8-10", rest: "90s" },
+        { name: "Bent-Over Rows", sets: "4", reps: "8-10", rest: "90s" },
+        { name: "Overhead Press", sets: "3", reps: "10", rest: "60s" },
+        { name: "Lat Pulldowns", sets: "3", reps: "12", rest: "60s" },
       ],
-      meals: {
+       meals: {
         breakfast: "Three-egg omelette with cheese and vegetables.",
         lunch: "Large portion of chili with beans and lean ground turkey.",
         dinner: "Pork chops with roasted potatoes and green beans.",
@@ -120,55 +114,37 @@ const hardcodedPlans: Record<string, Record<string, { workout: string[], meals: 
     },
      advanced: {
       workout: [
-        "Warm-up (5 min): Mobility work",
-        "Leg Day (4 sets):",
-        "  - Barbell Back Squats (5 reps, heavy)",
-        "  - Romanian Deadlifts (8 reps)",
-        "  - Leg Press (10 reps)",
-        "  - Calf Raises (15 reps)",
-        "  - Hamstring Curls (12 reps)",
-        "Cool-down (10 min): Deep stretching",
+        { name: "Barbell Back Squats", sets: "5", reps: "5", rest: "2-3min" },
+        { name: "Deadlifts", sets: "3", reps: "5", rest: "2-3min" },
+        { name: "Incline Dumbbell Press", sets: "4", reps: "8", rest: "90s" },
+        { name: "Leg Press", sets: "4", reps: "12", rest: "90s" },
       ],
-      meals: {
+       meals: {
         breakfast: "Protein pancakes with maple syrup.",
         lunch: "Salmon fillet with a large portion of white rice and avocado.",
         dinner: "Steak with a loaded baked potato and a side of creamed spinach.",
       },
     }
-  },
-  "cardio-endurance": {
-     beginner: {
-      workout: ["Warm-up (5 min): Brisk walking", "Steady-State Cardio (20 min): Cycling or elliptical at a moderate pace", "Cool-down (5 min): Slow walking and stretching"],
-      meals: { breakfast: "Whole-grain cereal with milk and fruit.", lunch: "Tuna salad sandwich on whole wheat.", dinner: "Pasta with marinara sauce and a side of greens." }
-    },
-    intermediate: {
-      workout: ["Warm-up (5 min): Jogging", "Interval Training (20 min):", "  - Run (2 min hard, 1 min easy) x 6", "Cool-down (5 min): Stretching"],
-      meals: { breakfast: "Bagel with cream cheese and a side of fruit.", lunch: "Chicken and rice soup.", dinner: "Chicken stir-fry with plenty of vegetables." }
-    },
-    advanced: {
-      workout: ["Warm-up (5 min): Light jogging", "Tempo Run (25 min): Run at a challenging but sustainable pace", "Cool-down (10 min): Jog/walk and stretch"],
-      meals: { breakfast: "Large bowl of oatmeal with peanut butter.", lunch: "Big plate of spaghetti with meat sauce.", dinner: "Burrito bowl with rice, beans, chicken, and toppings." }
-    }
-  },
-   "flexibility": {
-    beginner: {
-      workout: ["Warm-up (5 min): Gentle dynamic stretches", "Full-Body Static Stretching (20 min):", "  - Hold each stretch for 30 seconds", "  - Hamstring stretch, quad stretch, calf stretch", "  - Chest stretch, tricep stretch, shoulder stretch", "Cool-down (5 min): Deep breathing"],
-      meals: { breakfast: "Smoothie with fruits and spinach.", lunch: "Lentil soup.", dinner: "Vegetable curry with brown rice." }
-    },
-    intermediate: {
-      workout: ["Warm-up (5 min): Cat-cow, spinal twists", "Yoga Flow (25 min): Focus on sun salutations and warrior poses", "Cool-down (5 min): Savasana (corpse pose)"],
-      meals: { breakfast: "Avocado toast with a poached egg.", lunch: "Large salad with a variety of colorful vegetables and seeds.", dinner: "Baked fish with a lemon-dill sauce and asparagus." }
-    },
-    advanced: {
-      workout: ["Warm-up (10 min): Mobility drills", "Deep Stretching & PNF (25 min):", "  - Partner-assisted stretches if possible", "  - Focus on splits, backbends, and hip openers", "Cool-down (5 min): Meditation"],
-      meals: { breakfast: "Chia seed pudding.", lunch: "Quinoa salad with roasted vegetables and chickpeas.", dinner: "Black bean burgers on a whole-wheat bun." }
-    }
   }
 };
 
 
+function PlanDisplay({ plan, rawText }: { plan: Plan; rawText: string; }) {
+  const displayText = useTypewriter(rawText);
+
+  return (
+    <div className="font-body text-sm space-y-6">
+      <div className="prose prose-sm dark:prose-invert max-w-none">
+        <div dangerouslySetInnerHTML={{ __html: displayText }} />
+      </div>
+    </div>
+  );
+}
+
+
 export default function AiFitnessCoachPage() {
-  const [plan, setPlan] = useState<string | null>(null);
+  const [plan, setPlan] = useState<Plan | null>(null);
+  const [rawPlanText, setRawPlanText] = useState<string>('');
   const [isLoading, setIsLoading] = useState(false);
   const { toast } = useToast();
 
@@ -181,50 +157,66 @@ export default function AiFitnessCoachPage() {
     },
   });
   
-  function generateHardcodedPlan({ goal, level, duration }: FormValues): string {
-    const selectedPlan = hardcodedPlans[goal]?.[level];
-
-    if (!selectedPlan) {
-      return "No plan available for the selected options. Please try another combination.";
-    }
-
-    const { workout, meals } = selectedPlan;
+  function generatePlanText(planData: Plan, values: FormValues): string {
+    const goalTitle = values.goal.replace('-', ' ').replace(/\b\w/g, l => l.toUpperCase());
     
-    return `
-### Your Custom Fitness Plan
+    let text = `
+<h3 class="text-xl font-headline font-bold text-primary mb-4 flex items-center gap-2"><span class="text-2xl">📋</span> Your Custom Fitness Plan</h3>
+<div class="grid grid-cols-3 gap-4 mb-6 text-center">
+  <div class="bg-primary/10 p-3 rounded-lg"><div class="font-bold text-primary">${goalTitle}</div><div class="text-xs text-muted-foreground">Goal</div></div>
+  <div class="bg-primary/10 p-3 rounded-lg"><div class="font-bold text-primary">${values.level.charAt(0).toUpperCase() + values.level.slice(1)}</div><div class="text-xs text-muted-foreground">Level</div></div>
+  <div class="bg-primary/10 p-3 rounded-lg"><div class="font-bold text-primary">${values.duration} mins</div><div class="text-xs text-muted-foreground">Duration</div></div>
+</div>
 
-**Goal:** ${goal.replace('-', ' ')}
-**Level:** ${level}
-**Duration:** ${duration} minutes
+<h4 class="text-lg font-headline font-semibold text-accent mb-3 flex items-center gap-2"><span class="text-xl">💪</span> Workout Plan</h4>
+<table>
+  <thead>
+    <tr>
+      <th>Exercise</th>
+      <th>Sets</th>
+      <th>Reps</th>
+      <th>Rest</th>
+    </tr>
+  </thead>
+  <tbody>
+    ${planData.workout.map(ex => `<tr><td>${ex.name}</td><td>${ex.sets}</td><td>${ex.reps}</td><td>${ex.rest}</td></tr>`).join('')}
+  </tbody>
+</table>
+${planData.cardio ? `<p class="mt-4"><strong class="font-semibold text-accent">Cardio:</strong> ${planData.cardio}</p>` : ''}
 
----
-
-#### **Workout Plan**
-
-${workout.join('\n')}
-
----
-
-#### **Meal Suggestions**
-
-- **Breakfast:** ${meals.breakfast}
-- **Lunch:** ${meals.lunch}
-- **Dinner:** ${meals.dinner}
-
-*Disclaimer: This is a sample plan. Consult with a professional before starting any new fitness or nutrition program.*
-    `;
+<h4 class="text-lg font-headline font-semibold text-accent mt-6 mb-3 flex items-center gap-2"><span class="text-xl">🥗</span> Meal Suggestions</h4>
+<ul>
+  <li><strong class="font-semibold text-primary/90">Breakfast:</strong> ${planData.meals.breakfast}</li>
+  <li><strong class="font-semibold text-primary/90">Lunch:</strong> ${planData.meals.lunch}</li>
+  <li><strong class="font-semibold text-primary/90">Dinner:</strong> ${planData.meals.dinner}</li>
+</ul>
+<p class="text-xs text-muted-foreground mt-6 italic">*Disclaimer: This is a sample plan. Consult with a professional before starting any new fitness or nutrition program.</p>
+`;
+    return text;
   }
-
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
     setIsLoading(true);
     setPlan(null);
+    setRawPlanText('');
     
-    // Simulate a delay to give the feeling of generation
-    await new Promise(resolve => setTimeout(resolve, 1000));
+    await new Promise(resolve => setTimeout(resolve, 500));
 
-    const generatedPlan = generateHardcodedPlan(values);
-    setPlan(generatedPlan);
+    const goalKey = values.goal === 'cardio-endurance' || values.goal === 'flexibility' ? 'weight-loss' : values.goal;
+    const selectedPlan = hardcodedPlans[goalKey]?.[values.level];
+
+    if (!selectedPlan) {
+      toast({
+        variant: "destructive",
+        title: "Plan Not Found",
+        description: "A plan for the selected options is not available. Please try another combination.",
+      });
+      setIsLoading(false);
+      return;
+    }
+    
+    setPlan(selectedPlan);
+    setRawPlanText(generatePlanText(selectedPlan, values));
     
     toast({
       title: "Success!",
@@ -261,8 +253,6 @@ ${workout.join('\n')}
                         <SelectContent>
                           <SelectItem value="weight-loss">Weight Loss</SelectItem>
                           <SelectItem value="muscle-gain">Muscle Gain</SelectItem>
-                          <SelectItem value="cardio-endurance">Cardio Endurance</SelectItem>
-                          <SelectItem value="flexibility">Flexibility</SelectItem>
                         </SelectContent>
                       </Select>
                       <FormMessage />
@@ -324,8 +314,8 @@ ${workout.join('\n')}
                     </div>
                   </div>
               )}
-              {plan && (
-                  <pre className="whitespace-pre-wrap font-body text-sm bg-secondary/30 p-4 rounded-md">{plan}</pre>
+              {plan && rawPlanText && (
+                  <PlanDisplay plan={plan} rawText={rawPlanText} />
               )}
             </CardContent>
           </Card>
