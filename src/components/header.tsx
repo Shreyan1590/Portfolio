@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Code, User, Briefcase, Bot, Mail, Award, GraduationCap, Star, BookOpen, GitFork, Lightbulb, Rocket, Trophy, Rss, Menu, X } from "lucide-react";
+import { Code, User, Briefcase, Bot, Mail, Award, GraduationCap, Star, BookOpen, GitFork, Lightbulb, Rocket, Trophy, Rss, Menu, X, FileText } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetHeader, SheetTrigger, SheetClose, SheetTitle } from "@/components/ui/sheet";
 import Link from "next/link";
@@ -14,6 +14,7 @@ const navLinks = [
   { href: "#case-studies", label: "Case Studies", icon: BookOpen },
   { href: "#certifications", label: "Certs", icon: Award },
   { href: "#education", label: "Education", icon: GraduationCap },
+  { href: "#research", label: "Research", icon: FileText },
   { href: "#achievements", label: "Awards", icon: Trophy },
   { href: "#open-source", label: "OSS", icon: GitFork },
   { href: "#testimonials", label: "Testimonials", icon: Star },

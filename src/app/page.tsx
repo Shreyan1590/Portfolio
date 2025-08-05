@@ -15,6 +15,7 @@ import { TechPhilosophySection } from "@/components/sections/tech-philosophy";
 import { ServicesSection } from "@/components/sections/services";
 import { AchievementsSection } from "@/components/sections/achievements";
 import { BlogSection } from "@/components/sections/blog";
+import { ResearchSection } from "@/components/sections/research";
 
 
 export default function Home() {
@@ -31,6 +32,7 @@ export default function Home() {
           <CaseStudiesSection />
           <CertificationsSection />
           <EducationSection />
+          <ResearchSection />
           <AchievementsSection />
           <OpenSourceSection />
           <TestimonialsSection />
