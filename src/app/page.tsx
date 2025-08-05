@@ -13,6 +13,7 @@ import { CaseStudiesSection } from "@/components/sections/case-studies";
 import { OpenSourceSection } from "@/components/sections/open-source";
 import { TestimonialsSection } from "@/components/sections/testimonials";
 import { BlogSection } from "@/components/sections/blog";
+import { ContactSection } from "@/components/sections/contact";
 
 
 export default function Home() {
@@ -39,6 +40,7 @@ export default function Home() {
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <BlogSection />
           <CoverLetterSection />
+          <ContactSection />
         </div>
       </main>
       <Footer />
