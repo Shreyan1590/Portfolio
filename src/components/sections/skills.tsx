@@ -1,6 +1,8 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
 import { BrainCircuit, Code, Database, Server, Settings } from "lucide-react";
+import { useInView } from "react-intersection-observer";
+import { cn } from "@/lib/utils";
 
 const skillsData = [
   { category: "Frontend", icon: Code, skills: [
@@ -36,31 +38,43 @@ const skillsData = [
 ];
 
 export function SkillsSection() {
+  const { ref, inView } = useInView({
+    triggerOnce: true,
+    threshold: 0.1,
+  });
+
   return (
-    <section id="skills" className="py-16 md:py-24">
-      <h2 className="text-3xl md:text-4xl font-headline font-bold text-center mb-12 bg-clip-text text-transparent bg-gradient-to-r from-primary to-accent">
-        Technical Proficiency
-      </h2>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-        {skillsData.map((category) => (
-          <Card key={category.category} className="bg-card/50 border-border/50 backdrop-blur-sm">
-            <CardHeader className="flex flex-row items-center gap-4">
-              <category.icon className="h-8 w-8 text-primary" />
-              <CardTitle className="text-2xl font-headline text-primary">{category.category}</CardTitle>
-            </CardHeader>
-            <CardContent className="space-y-4">
-              {category.skills.map((skill) => (
-                <div key={skill.name}>
-                  <div className="flex justify-between mb-1">
-                    <span className="text-sm font-medium text-foreground">{skill.name}</span>
-                    <span className="text-sm text-muted-foreground">{skill.level}%</span>
+    <section id="skills" className="py-16 md:py-24" ref={ref}>
+      <div
+        className={cn(
+          "transition-opacity duration-1000 ease-out will-change-transform-opacity",
+          inView ? "animate-fade-in-up" : "opacity-0"
+        )}
+      >
+        <h2 className="text-3xl md:text-4xl font-headline font-bold text-center mb-12 bg-clip-text text-transparent bg-gradient-to-r from-primary to-accent">
+          Technical Proficiency
+        </h2>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {skillsData.map((category, index) => (
+            <Card key={category.category} className="bg-card/50 border-border/50 backdrop-blur-sm">
+              <CardHeader className="flex flex-row items-center gap-4">
+                <category.icon className="h-8 w-8 text-primary" />
+                <CardTitle className="text-2xl font-headline text-primary">{category.category}</CardTitle>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                {category.skills.map((skill) => (
+                  <div key={skill.name}>
+                    <div className="flex justify-between mb-1">
+                      <span className="text-sm font-medium text-foreground">{skill.name}</span>
+                      <span className="text-sm text-muted-foreground">{skill.level}%</span>
+                    </div>
+                    <Progress value={inView ? skill.level : 0} className="h-2 [&>div]:bg-gradient-to-r [&>div]:from-accent [&>div]:to-primary transition-all duration-1000 ease-out" />
                   </div>
-                  <Progress value={skill.level} className="h-2 [&>div]:bg-gradient-to-r [&>div]:from-accent [&>div]:to-primary" />
-                </div>
-              ))}
-            </CardContent>
-          </Card>
-        ))}
+                ))}
+              </CardContent>
+            </Card>
+          ))}
+        </div>
       </div>
     </section>
   );

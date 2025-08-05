@@ -4,6 +4,8 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Github, ExternalLink } from "lucide-react";
 import Link from "next/link";
+import { useInView } from "react-intersection-observer";
+import { cn } from "@/lib/utils";
 
 const projectsData = [
   {
@@ -63,51 +65,63 @@ const projectsData = [
 ];
 
 export function ProjectsSection() {
+    const { ref, inView } = useInView({
+    triggerOnce: true,
+    threshold: 0.1,
+  });
+
   return (
-    <section id="projects" className="py-16 md:py-24">
-      <h2 className="text-3xl md:text-4xl font-headline font-bold text-center mb-12 bg-clip-text text-transparent bg-gradient-to-r from-primary to-accent">
-        Featured Projects
-      </h2>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-        {projectsData.map((project) => (
-          <Card key={project.title} className="flex flex-col overflow-hidden group bg-card/50 border-border/50 backdrop-blur-sm">
-            <div className="relative h-48 w-full overflow-hidden">
-               <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent z-10" />
-              <Image
-                src={project.image}
-                alt={`Screenshot of ${project.title}`}
-                fill
-                className="object-cover transition-transform duration-500 group-hover:scale-105"
-                data-ai-hint={project.aiHint}
-              />
-            </div>
-            <CardHeader>
-              <CardTitle className="font-headline text-xl text-primary">{project.title}</CardTitle>
-              <CardDescription>{project.description}</CardDescription>
-            </CardHeader>
-            <CardContent className="flex-grow">
-              <div className="flex flex-wrap gap-2">
-                {project.stack.map((tech) => (
-                  <Badge key={tech} variant="secondary">{tech}</Badge>
-                ))}
+    <section id="projects" className="py-16 md:py-24" ref={ref}>
+       <div
+        className={cn(
+          "transition-opacity duration-1000 ease-out will-change-transform-opacity",
+          inView ? "animate-fade-in-up" : "opacity-0"
+        )}
+      >
+        <h2 className="text-3xl md:text-4xl font-headline font-bold text-center mb-12 bg-clip-text text-transparent bg-gradient-to-r from-primary to-accent">
+          Featured Projects
+        </h2>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {projectsData.map((project, index) => (
+            <Card key={project.title} className="flex flex-col overflow-hidden group bg-card/50 border-border/50 backdrop-blur-sm transition-all duration-300 hover:shadow-2xl hover:shadow-primary/20 hover:-translate-y-2">
+              <div className="relative h-48 w-full overflow-hidden">
+                 <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent z-10" />
+                <Image
+                  src={project.image}
+                  alt={`Screenshot of ${project.title}`}
+                  fill
+                  className="object-cover transition-transform duration-500 group-hover:scale-105"
+                  data-ai-hint={project.aiHint}
+                />
               </div>
-            </CardContent>
-            <CardFooter className="flex justify-end gap-2 bg-secondary/30 p-4">
-              <Button variant="ghost" size="sm" asChild>
-                <a href={project.repoUrl} target="_blank" rel="noopener noreferrer">
-                  <Github className="mr-2 h-4 w-4" />
-                  Code
-                </a>
-              </Button>
-              <Button variant="outline" size="sm" asChild>
-                <Link href={project.liveUrl}>
-                  <ExternalLink className="mr-2 h-4 w-4" />
-                  Live Demo
-                </Link>
-              </Button>
-            </CardFooter>
-          </Card>
-        ))}
+              <CardHeader>
+                <CardTitle className="font-headline text-xl text-primary">{project.title}</CardTitle>
+                <CardDescription>{project.description}</CardDescription>
+              </CardHeader>
+              <CardContent className="flex-grow">
+                <div className="flex flex-wrap gap-2">
+                  {project.stack.map((tech) => (
+                    <Badge key={tech} variant="secondary">{tech}</Badge>
+                  ))}
+                </div>
+              </CardContent>
+              <CardFooter className="flex justify-end gap-2 bg-secondary/30 p-4">
+                <Button variant="ghost" size="sm" asChild>
+                  <a href={project.repoUrl} target="_blank" rel="noopener noreferrer">
+                    <Github className="mr-2 h-4 w-4" />
+                    Code
+                  </a>
+                </Button>
+                <Button variant="outline" size="sm" asChild>
+                  <Link href={project.liveUrl}>
+                    <ExternalLink className="mr-2 h-4 w-4" />
+                    Live Demo
+                  </Link>
+                </Button>
+              </CardFooter>
+            </Card>
+          ))}
+        </div>
       </div>
     </section>
   );

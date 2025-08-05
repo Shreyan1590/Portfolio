@@ -1,6 +1,8 @@
 import { GitFork, Star, Eye } from "lucide-react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
+import { useInView } from "react-intersection-observer";
+import { cn } from "@/lib/utils";
 
 const contributionsData = [
   {
@@ -27,35 +29,50 @@ const contributionsData = [
 ];
 
 export function OpenSourceSection() {
+    const { ref, inView } = useInView({
+    triggerOnce: true,
+    threshold: 0.1,
+  });
+
   return (
-    <section id="open-source" className="py-16 md:py-24">
-      <h2 className="text-3xl md:text-4xl font-headline font-bold text-center mb-12 bg-clip-text text-transparent bg-gradient-to-r from-primary to-accent">
-        Open Source Contributions
-      </h2>
-      <div className="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8">
-        {contributionsData.map((item) => (
-          <Card key={item.title} className="bg-card/50 border-border/50 backdrop-blur-sm flex flex-col p-6">
-            <CardHeader className="p-0 mb-4">
-              <CardTitle className="font-headline text-xl text-primary">{item.title}</CardTitle>
-              <CardDescription className="text-sm text-muted-foreground">{item.description}</CardDescription>
-            </CardHeader>
-            <CardContent className="p-0 flex-grow space-y-4">
-              <div className="flex justify-between text-sm text-muted-foreground">
-                <div className="flex items-center gap-1">
-                  <Star className="h-4 w-4" /> {item.stars}
+    <section id="open-source" className="py-16 md:py-24" ref={ref}>
+      <div
+        className={cn(
+          "transition-opacity duration-1000 ease-out will-change-transform-opacity",
+          inView ? "animate-fade-in-up" : "opacity-0"
+        )}
+      >
+        <h2 className="text-3xl md:text-4xl font-headline font-bold text-center mb-12 bg-clip-text text-transparent bg-gradient-to-r from-primary to-accent">
+          Open Source Contributions
+        </h2>
+        <div className="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8">
+          {contributionsData.map((item, index) => (
+            <Card
+              key={item.title}
+              className="bg-card/50 border-border/50 backdrop-blur-sm flex flex-col p-6 transition-all duration-300 hover:shadow-2xl hover:shadow-primary/20 hover:-translate-y-2"
+            >
+              <CardHeader className="p-0 mb-4">
+                <CardTitle className="font-headline text-xl text-primary">{item.title}</CardTitle>
+                <CardDescription className="text-sm text-muted-foreground">{item.description}</CardDescription>
+              </CardHeader>
+              <CardContent className="p-0 flex-grow space-y-4">
+                <div className="flex justify-between text-sm text-muted-foreground">
+                  <div className="flex items-center gap-1">
+                    <Star className="h-4 w-4" /> {item.stars}
+                  </div>
+                  <div className="flex items-center gap-1">
+                    <GitFork className="h-4 w-4" /> {item.forks}
+                  </div>
                 </div>
-                <div className="flex items-center gap-1">
-                  <GitFork className="h-4 w-4" /> {item.forks}
-                </div>
-              </div>
-              <Button variant="outline" size="sm" asChild className="w-full">
-                <a href={`https://github.com/${item.repo}`} target="_blank" rel="noopener noreferrer">
-                  <Eye className="mr-2 h-4 w-4" /> View Contribution
-                </a>
-              </Button>
-            </CardContent>
-          </Card>
-        ))}
+                <Button variant="outline" size="sm" asChild className="w-full">
+                  <a href={`https://github.com/${item.repo}`} target="_blank" rel="noopener noreferrer">
+                    <Eye className="mr-2 h-4 w-4" /> View Contribution
+                  </a>
+                </Button>
+              </CardContent>
+            </Card>
+          ))}
+        </div>
       </div>
     </section>
   );

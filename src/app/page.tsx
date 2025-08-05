@@ -15,9 +15,32 @@ import { CaseStudiesSection } from "@/components/sections/case-studies";
 import { OpenSourceSection } from "@/components/sections/open-source";
 import { TestimonialsSection } from "@/components/sections/testimonials";
 import { BlogSection } from "@/components/sections/blog";
+import { useEffect } from "react";
 
 
 export default function Home() {
+    useEffect(() => {
+    if (typeof window !== "undefined") {
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add("animate-fade-in-up");
+              entry.target.classList.remove("opacity-0");
+            }
+          });
+        },
+        { threshold: 0.1 }
+      );
+
+      document.querySelectorAll("section").forEach((section) => {
+        section.classList.add("opacity-0");
+        observer.observe(section);
+      });
+
+      return () => observer.disconnect();
+    }
+  }, []);
   
   return (
     <div className="flex flex-col min-h-screen bg-background">
