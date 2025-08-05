@@ -21,10 +21,11 @@ const nextConfig: NextConfig = {
   experimental: {
     // This is to allow the Next.js dev server to be accessible from the
     // preview iframe.
-    allowedDevOrigins: [
-      'https://*.cluster-44kx2eiocbhe2tyk3zoyo3ryuo.cloudworkstations.dev',
-    ],
+    
   },
+  allowedDevOrigins: [
+    'https://*.cluster-44kx2eiocbhe2tyk3zoyo3ryuo.cloudworkstations.dev',
+  ],
 };
 
 export default nextConfig;
