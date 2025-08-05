@@ -3,6 +3,7 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Github, ExternalLink } from "lucide-react";
+import Link from "next/link";
 
 const projectsData = [
   {
@@ -100,10 +101,10 @@ export function ProjectsSection() {
                 </a>
               </Button>
               <Button variant="outline" size="sm" asChild>
-                <a href={project.liveUrl}>
+                <Link href={project.liveUrl}>
                   <ExternalLink className="mr-2 h-4 w-4" />
                   Live Demo
-                </a>
+                </Link>
               </Button>
             </CardFooter>
           </Card>

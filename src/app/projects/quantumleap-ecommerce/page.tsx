@@ -7,15 +7,23 @@ import Image from "next/image";
 import Link from "next/link";
 import { ProjectPageHeader } from "@/components/projects/project-page-header";
 import { products } from "@/lib/product-data";
+import { EcommerceFooter } from "@/components/projects/ecommerce-footer";
+import { EcommerceHero } from "@/components/projects/ecommerce-hero";
+import { EcommerceCategories } from "@/components/projects/ecommerce-categories";
+import { EcommercePromo } from "@/components/projects/ecommerce-promo";
 
 export default function QuantumLeapEcommercePage() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-[#1a020d] via-background to-[#0d021a]">
       <ProjectPageHeader title="QuantumLeap E-commerce" />
       <main className="container mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <div className="text-center mb-12">
-            <h2 className="text-3xl font-headline font-bold mb-2">Our Products</h2>
-            <p className="text-muted-foreground max-w-2xl mx-auto">Browse our collection of cutting-edge tech products. Click on any product to see a live demo of our AI-powered description generator.</p>
+        <EcommerceHero />
+
+        <EcommerceCategories />
+
+        <div className="text-center mb-12 mt-24">
+            <h2 className="text-3xl font-headline font-bold mb-2">New Arrivals</h2>
+            <p className="text-muted-foreground max-w-2xl mx-auto">Check out the latest in cutting-edge tech. Click on any product to see a live demo of our AI-powered description generator.</p>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {products.map((product) => (
@@ -53,7 +61,10 @@ export default function QuantumLeapEcommercePage() {
             </Card>
             ))}
         </div>
+
+        <EcommercePromo />
       </main>
+      <EcommerceFooter />
     </div>
   );
 }
