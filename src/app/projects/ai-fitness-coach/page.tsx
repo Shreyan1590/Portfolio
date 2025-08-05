@@ -129,13 +129,28 @@ const hardcodedPlans: Record<string, Record<string, Plan>> = {
 };
 
 
-function PlanDisplay({ plan, rawText }: { plan: Plan; rawText: string; }) {
-  const displayText = useTypewriter(rawText);
+function PlanDisplay({ rawText }: { rawText: string; }) {
+  const displayText = useTypewriter(rawText, 10, false);
+  const [isFinished, setIsFinished] = useState(false);
+
+  useEffect(() => {
+    if (displayText.length === rawText.length && rawText.length > 0) {
+      setIsFinished(true);
+    } else {
+      setIsFinished(false);
+    }
+  }, [displayText, rawText]);
 
   return (
     <div className="font-body text-sm space-y-6">
       <div className="prose prose-sm dark:prose-invert max-w-none">
-        <div dangerouslySetInnerHTML={{ __html: displayText }} />
+        {isFinished ? (
+          <div dangerouslySetInnerHTML={{ __html: rawText }} />
+        ) : (
+          <div className="flex items-center justify-center min-h-[200px]">
+            <Loader2 className="h-8 w-8 animate-spin text-primary" />
+          </div>
+        )}
       </div>
     </div>
   );
@@ -302,11 +317,11 @@ ${planData.cardio ? `<p class="mt-4"><strong class="font-semibold text-accent">C
           </CardContent>
         </Card>
 
-        {(isLoading || plan) && (
+        {(isLoading || rawPlanText) && (
             <Card className="mt-8 bg-card/50 border-border/50 backdrop-blur-sm">
             <CardHeader><CardTitle className="flex items-center gap-2 font-headline"><Sparkles /> Your Custom Fitness Plan</CardTitle></CardHeader>
             <CardContent className="min-h-[300px] relative">
-                {isLoading && (
+                {isLoading && !rawPlanText && (
                   <div className="absolute inset-0 flex items-center justify-center bg-card/80 backdrop-blur-sm rounded-lg">
                       <div className="text-center">
                       <Loader2 className="h-8 w-8 animate-spin text-primary mx-auto mb-2" />
@@ -314,8 +329,8 @@ ${planData.cardio ? `<p class="mt-4"><strong class="font-semibold text-accent">C
                     </div>
                   </div>
               )}
-              {plan && rawPlanText && (
-                  <PlanDisplay plan={plan} rawText={rawPlanText} />
+              {rawPlanText && (
+                  <PlanDisplay rawText={rawPlanText} />
               )}
             </CardContent>
           </Card>
