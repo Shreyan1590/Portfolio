@@ -18,6 +18,40 @@ const navLinks = [
   { href: "#contact", label: "Contact", icon: Mail },
 ];
 
+const CustomLogo = () => (
+  <svg
+    width="24"
+    height="24"
+    viewBox="0 0 24 24"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+    className="h-6 w-6 text-primary"
+  >
+    <path
+      d="M12 2L2 7V17L12 22L22 17V7L12 2Z"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+    <path
+      d="M2 7L12 12L22 7"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+    <path
+      d="M12 12V22"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+  </svg>
+);
+
+
 export function Header() {
     const [isSheetOpen, setIsSheetOpen] = useState(false);
 
@@ -26,9 +60,9 @@ export function Header() {
       <div className="container flex h-16 max-w-screen-2xl items-center">
         <div className="mr-4 flex">
           <a href="#" className="mr-6 flex items-center space-x-2">
-            <Bot className="h-6 w-6 text-primary" />
+            <CustomLogo />
             <span className="font-bold font-headline text-lg sm:inline-block">
-              Shreyan.AI
+              Shreyan's Portfolio
             </span>
           </a>
         </div>
@@ -57,9 +91,9 @@ export function Header() {
                 <SheetHeader className="flex flex-row justify-between items-center">
                     <SheetTitle className="sr-only">Navigation Menu</SheetTitle>
                      <a href="#" className="flex items-center space-x-2">
-                        <Bot className="h-6 w-6 text-primary" />
+                        <CustomLogo />
                         <span className="font-bold font-headline text-lg">
-                        Shreyan.AI
+                        Shreyan's Portfolio
                         </span>
                     </a>
                     <SheetClose asChild>
