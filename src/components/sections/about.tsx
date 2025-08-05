@@ -23,7 +23,7 @@ export function AboutSection() {
         <div className="md:col-span-2 relative h-96 w-full rounded-lg overflow-hidden group shadow-2xl shadow-primary/20">
            <div className="absolute inset-0 bg-gradient-to-t from-primary/50 to-accent/50 opacity-30 group-hover:opacity-50 transition-opacity duration-500" />
           <Image
-            src="https://placehold.co/400x500.png"
+            src="/portrait.png"
             alt="A portrait of Shreyan S."
             layout="fill"
             objectFit="cover"
