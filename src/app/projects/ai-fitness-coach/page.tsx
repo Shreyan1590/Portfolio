@@ -8,11 +8,10 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
-import { Bot, Dumbbell, Loader2, Sparkles, Flame, Apple, Fish } from "lucide-react";
+import { Bot, Dumbbell, Loader2, Sparkles } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { ProjectPageHeader } from "@/components/projects/project-page-header";
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { useTypewriter } from "@/hooks/use-typewriter";
 
 const formSchema = z.object({
@@ -130,28 +129,34 @@ const hardcodedPlans: Record<string, Record<string, Plan>> = {
 
 
 function PlanDisplay({ rawText }: { rawText: string; }) {
-  const displayText = useTypewriter(rawText, 10, false);
-  const [isFinished, setIsFinished] = useState(false);
+  const animatedText = useTypewriter(rawText, 10);
+  const [showLoader, setShowLoader] = useState(true);
 
   useEffect(() => {
-    if (displayText.length === rawText.length && rawText.length > 0) {
-      setIsFinished(true);
+    // Determine a reasonable time to show the loader before revealing the content
+    const loaderTime = Math.min(rawText.length * 5, 1000); // e.g. 5ms per char, max 1s
+    if (rawText) {
+      setShowLoader(true);
+      const timer = setTimeout(() => {
+        setShowLoader(false);
+      }, loaderTime);
+      return () => clearTimeout(timer);
     } else {
-      setIsFinished(false);
+      setShowLoader(false);
     }
-  }, [displayText, rawText]);
+  }, [rawText]);
+
+  if (showLoader) {
+    return (
+      <div className="flex items-center justify-center min-h-[200px]">
+        <Loader2 className="h-8 w-8 animate-spin text-primary" />
+      </div>
+    );
+  }
 
   return (
-    <div className="font-body text-sm space-y-6">
-      <div className="prose prose-sm dark:prose-invert max-w-none">
-        {isFinished ? (
-          <div dangerouslySetInnerHTML={{ __html: rawText }} />
-        ) : (
-          <div className="flex items-center justify-center min-h-[200px]">
-            <Loader2 className="h-8 w-8 animate-spin text-primary" />
-          </div>
-        )}
-      </div>
+    <div className="prose prose-sm dark:prose-invert max-w-none font-body">
+      <div dangerouslySetInnerHTML={{ __html: animatedText }} />
     </div>
   );
 }
