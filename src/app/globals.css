@@ -84,6 +84,19 @@
   .prose li {
     @apply pb-2;
   }
+  
+  /* Scroll-reveal animation */
+  .fade-in-up {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+  }
+
+  /* This is a utility class for when the element is in view */
+  .faded-in {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 /* Starfield Background */
@@ -141,4 +154,23 @@
   .shooting-star:nth-child(1) { top: 20%; left: -50%; animation-delay: 1.3s; }
   .shooting-star:nth-child(2) { top: 50%; left: -50%; animation-delay: 2.8s; }
   .shooting-star:nth-child(3) { top: 80%; left: -50%; animation-delay: 0.6s; }
+  
+  /* Hero intro animations */
+  @keyframes fade-in-up-hero {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .hero-animate {
+    animation-name: fade-in-up-hero;
+    animation-duration: 0.8s;
+    animation-fill-mode: both;
+    animation-timing-function: ease-out;
+  }
 }

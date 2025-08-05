@@ -47,7 +47,7 @@ const experienceData = [
 
 export function ExperienceSection() {
   return (
-    <section id="experience" className="py-16 md:py-24">
+    <section id="experience" className="py-16 md:py-24 fade-in-up">
       <h2 className="text-3xl md:text-4xl font-headline font-bold text-center mb-16 bg-clip-text text-transparent bg-gradient-to-r from-primary to-accent">
         Career Journey
       </h2>
@@ -59,7 +59,7 @@ export function ExperienceSection() {
               <item.icon className="h-5 w-5 text-primary" />
             </div>
             <div
-              className={`w-full md:w-1/2 p-6 bg-card rounded-lg shadow-lg border-l-4 md:border-l-0 ${
+              className={`w-full md:w-1/2 p-6 bg-card rounded-lg shadow-lg border-l-4 md:border-l-0 transition-all hover:shadow-primary/20 hover:border-primary ${
                 index % 2 === 0 ? "md:pr-8 md:border-r-4 md:border-primary" : "md:pl-8 md:text-right md:border-l-4 md:border-accent"
               }`}
                style={{'marginLeft': index % 2 === 0 ? '0' : 'auto', 'marginRight': index % 2 === 0 ? 'auto' : '0'}}

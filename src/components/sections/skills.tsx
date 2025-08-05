@@ -37,13 +37,13 @@ const skillsData = [
 
 export function SkillsSection() {
   return (
-    <section id="skills" className="py-16 md:py-24">
+    <section id="skills" className="py-16 md:py-24 fade-in-up">
       <h2 className="text-3xl md:text-4xl font-headline font-bold text-center mb-12 bg-clip-text text-transparent bg-gradient-to-r from-primary to-accent">
         Technical Proficiency
       </h2>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
         {skillsData.map((category) => (
-          <Card key={category.category} className="bg-card/50 border-border/50 backdrop-blur-sm transition-all duration-300 hover:border-primary hover:shadow-2xl hover:shadow-primary/20">
+          <Card key={category.category} className="bg-card/50 border-border/50 backdrop-blur-sm transition-all duration-300 hover:border-primary hover:shadow-2xl hover:shadow-primary/20 hover:-translate-y-2">
             <CardHeader className="flex flex-row items-center gap-4">
               <category.icon className="h-8 w-8 text-primary" />
               <CardTitle className="text-2xl font-headline text-primary">{category.category}</CardTitle>
