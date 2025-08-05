@@ -17,28 +17,30 @@ import { BlogSection } from "@/components/sections/blog";
 
 export default function Home() {
   return (
-    <div className="flex flex-col min-h-screen bg-gradient-to-br from-[#1a020d] via-background to-[#0d021a]">
+    <div className="flex flex-col min-h-screen bg-background">
       <Header />
       <main className="flex-1">
         <HeroSection />
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <AboutSection />
-        </div>
-        <ServicesSection />
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <SkillsSection />
-          <ExperienceSection />
-          <ProjectsSection />
-        </div>
-        <CaseStudiesSection />
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <OpenSourceSection />
-          <TechPhilosophySection />
-        </div>
-        <TestimonialsSection />
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <BlogSection />
-          <CoverLetterSection />
+        <div className="relative z-10 bg-background">
+          <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+            <AboutSection />
+          </div>
+          <ServicesSection />
+          <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+            <SkillsSection />
+            <ExperienceSection />
+            <ProjectsSection />
+          </div>
+          <CaseStudiesSection />
+          <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+            <OpenSourceSection />
+            <TechPhilosophySection />
+          </div>
+          <TestimonialsSection />
+          <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+            <BlogSection />
+            <CoverLetterSection />
+          </div>
         </div>
       </main>
       <Footer />
