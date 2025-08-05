@@ -16,7 +16,7 @@ const navLinks = [
   { href: "#blog", label: "Blog", icon: Rss },
   { href: "#tech-philosophy", label: "Philosophy", icon: Lightbulb },
   { href: "#services", label: "Services", icon: Rocket },
-  { href: "#ai-tool", label: "AI Tool", icon: Bot },
+  { href: "#ai-tool", label: "AI Tools", icon: Bot },
   { href: "#contact", label: "Contact", icon: Mail },
 ];
 
