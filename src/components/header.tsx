@@ -14,7 +14,6 @@ const navLinks = [
   { href: "#case-studies", label: "Case Studies", icon: BookOpen },
   { href: "#certifications", label: "Certs", icon: Award },
   { href: "#education", label: "Education", icon: GraduationCap },
-  { href: "#research", label: "Research", icon: FileText },
   { href: "#achievements", label: "Awards", icon: Trophy },
   { href: "#open-source", label: "OSS", icon: GitFork },
   { href: "#testimonials", label: "Testimonials", icon: Star },

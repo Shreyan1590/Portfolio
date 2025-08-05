@@ -1,4 +1,4 @@
-import { Briefcase } from "lucide-react";
+import { Briefcase, BookOpen } from "lucide-react";
 
 const experienceData = [
   {
@@ -6,24 +6,42 @@ const experienceData = [
     company: "Nexus AI",
     period: "2022 - Present",
     description: "Architected and led the development of a generative AI platform, integrating multiple LLMs to serve over 10,000 users. Improved model response times by 40% through advanced caching and quantization techniques.",
+    icon: Briefcase,
+  },
+  {
+    role: "Energy Consumption Prediction for Accurate Forecasting",
+    company: "Published in International Journal of Energy Research (IJER)",
+    period: "2025",
+    description: "Developed a predictor using Random Forest (89.5% accuracy) and KNN (83.2% accuracy) to reduce prediction errors by 22% versus traditional methods. Implemented in campus smart buildings, it achieved a 15% reduction in energy waste through data-driven load optimization.",
+    icon: BookOpen,
+  },
+  {
+    role: "AI-Based Error Detection System using JS",
+    company: "A Project based on Artificial Intelligence",
+    period: "2025",
+    description: "An AI-driven industrial monitoring system developed to analyze equipment vibration patterns, thermal signatures, and pressure readings to detect potential failures. The system provides early warnings, visual health assessments, and maintenance recommendations, optimizing schedules and improving equipment effectiveness by 18%.",
+    icon: BookOpen,
   },
   {
     role: "Senior Software Engineer",
     company: "TechCorp",
     period: "2020 - 2022",
     description: "Led the development of a high-traffic e-commerce platform, improving performance by 30%. Mentored junior engineers and championed best practices in code quality and testing using React and Node.js.",
+    icon: Briefcase,
   },
-  {
+    {
     role: "Software Engineer",
     company: "Innovate Inc.",
     period: "2018 - 2020",
     description: "Developed and maintained features for a SaaS product using React and Django. Collaborated in an agile team to deliver features on a bi-weekly sprint cycle, contributing to a 20% increase in user engagement.",
+    icon: Briefcase,
   },
     {
     role: "Software Engineer Intern",
     company: "Data Solutions",
     period: "Summer 2017",
     description: "Assisted in building a data processing pipeline using Python and SQL, which helped automate internal reporting and saved hundreds of hours annually.",
+    icon: Briefcase,
   },
 ];
 
@@ -38,7 +56,7 @@ export function ExperienceSection() {
         {experienceData.map((item, index) => (
           <div key={index} className="relative pl-12 md:pl-0 mb-12 flex items-center w-full">
             <div className="absolute left-4 md:left-1/2 -translate-x-1/2 bg-background border-2 border-primary rounded-full p-2 z-10">
-              <Briefcase className="h-5 w-5 text-primary" />
+              <item.icon className="h-5 w-5 text-primary" />
             </div>
             <div
               className={`w-full md:w-1/2 p-6 bg-card rounded-lg shadow-lg border-l-4 md:border-l-0 ${
