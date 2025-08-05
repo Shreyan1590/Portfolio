@@ -20,13 +20,13 @@ const principles = [
 
 export function TechPhilosophySection() {
   return (
-    <section id="tech-philosophy" className="py-16 md:py-24 fade-in-up">
+    <section id="tech-philosophy" className="py-16 md:py-24">
       <h2 className="text-3xl md:text-4xl font-headline font-bold text-center mb-12 bg-clip-text text-transparent bg-gradient-to-r from-primary to-accent">
         My Technology Philosophy
       </h2>
       <div className="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8">
         {principles.map((principle) => (
-          <div key={principle.title} className="text-center p-6 bg-card/50 border border-border/50 rounded-lg backdrop-blur-sm transition-all duration-300 hover:shadow-lg hover:shadow-primary/10 hover:-translate-y-1">
+          <div key={principle.title} className="text-center p-6 bg-card/50 border border-border/50 rounded-lg backdrop-blur-sm">
             <div className="inline-block p-4 bg-primary/10 rounded-full mb-4">
               <principle.icon className="h-8 w-8 text-primary" />
             </div>

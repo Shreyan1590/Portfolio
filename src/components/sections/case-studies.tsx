@@ -34,13 +34,13 @@ const caseStudiesData = [
 
 export function CaseStudiesSection() {
   return (
-    <section id="case-studies" className="py-16 md:py-24 bg-secondary/20 fade-in-up">
+    <section id="case-studies" className="py-16 md:py-24 bg-secondary/20">
       <h2 className="text-3xl md:text-4xl font-headline font-bold text-center mb-12 bg-clip-text text-transparent bg-gradient-to-r from-primary to-accent">
         In-Depth Case Studies
       </h2>
       <div className="max-w-6xl mx-auto">
         {caseStudiesData.map((study) => (
-          <div key={study.title} className="bg-card/50 border border-border/50 rounded-xl overflow-hidden shadow-2xl shadow-primary/10 transition-all duration-500 hover:shadow-primary/30 hover:border-primary/80">
+          <div key={study.title} className="bg-card/50 border border-border/50 rounded-xl overflow-hidden shadow-2xl shadow-primary/10">
             <div className="grid grid-cols-1 lg:grid-cols-2">
               <div className="p-8 md:p-12 order-2 lg:order-1">
                 <h3 className="text-2xl md:text-3xl font-headline font-bold text-primary">{study.title}</h3>

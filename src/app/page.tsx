@@ -15,11 +15,9 @@ import { CaseStudiesSection } from "@/components/sections/case-studies";
 import { OpenSourceSection } from "@/components/sections/open-source";
 import { TestimonialsSection } from "@/components/sections/testimonials";
 import { BlogSection } from "@/components/sections/blog";
-import { useScrollAnimation } from "@/hooks/use-mobile";
 
 
 export default function Home() {
-  useScrollAnimation();
   
   return (
     <div className="flex flex-col min-h-screen bg-background">

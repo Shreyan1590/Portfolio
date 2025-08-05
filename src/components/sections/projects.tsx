@@ -64,13 +64,13 @@ const projectsData = [
 
 export function ProjectsSection() {
   return (
-    <section id="projects" className="py-16 md:py-24 fade-in-up">
+    <section id="projects" className="py-16 md:py-24">
       <h2 className="text-3xl md:text-4xl font-headline font-bold text-center mb-12 bg-clip-text text-transparent bg-gradient-to-r from-primary to-accent">
         Featured Projects
       </h2>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
         {projectsData.map((project) => (
-          <Card key={project.title} className="flex flex-col overflow-hidden group hover:shadow-2xl hover:shadow-primary/20 transition-all duration-300 bg-card/50 hover:-translate-y-2 border-border/50 backdrop-blur-sm">
+          <Card key={project.title} className="flex flex-col overflow-hidden group bg-card/50 border-border/50 backdrop-blur-sm">
             <div className="relative h-48 w-full overflow-hidden">
                <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent z-10" />
               <Image

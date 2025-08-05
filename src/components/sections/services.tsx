@@ -21,13 +21,13 @@ const servicesData = [
 
 export function ServicesSection() {
   return (
-    <section id="services" className="py-16 md:py-24 bg-secondary/20 fade-in-up">
+    <section id="services" className="py-16 md:py-24 bg-secondary/20">
       <h2 className="text-3xl md:text-4xl font-headline font-bold text-center mb-12 bg-clip-text text-transparent bg-gradient-to-r from-primary to-accent">
         What I Offer
       </h2>
       <div className="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8">
         {servicesData.map((service) => (
-          <Card key={service.title} className="bg-card/50 border-border/50 backdrop-blur-sm text-center flex flex-col items-center p-6 transition-all duration-300 hover:border-accent hover:shadow-2xl hover:shadow-accent/20 hover:-translate-y-2">
+          <Card key={service.title} className="bg-card/50 border-border/50 backdrop-blur-sm text-center flex flex-col items-center p-6">
             <CardHeader className="p-0 mb-4">
               <div className="p-4 bg-accent/10 rounded-full inline-block">
                 <service.icon className="h-10 w-10 text-accent" />
