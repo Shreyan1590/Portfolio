@@ -99,22 +99,27 @@
   
   .stars {
     background: transparent url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%"><defs><pattern id="p" width="300" height="300" patternUnits="userSpaceOnUse"><circle cx="50" cy="50" r="1" fill="hsl(var(--primary-foreground)/0.4)"/><circle cx="100" cy="200" r="1" fill="hsl(var(--primary-foreground)/0.4)"/><circle cx="250" cy="150" r="1.5" fill="hsl(var(--primary-foreground)/0.4)"/></pattern></defs><rect width="100%" height="100%" fill="url(%23p)"/></svg>');
-    animation: move-stars 150s linear infinite;
+    animation: move-stars 150s linear infinite, twinkle 10s infinite;
   }
   
   .stars2 {
     background: transparent url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%"><defs><pattern id="p2" width="500" height="500" patternUnits="userSpaceOnUse"><circle cx="250" cy="100" r="1.5" fill="hsl(var(--accent-foreground)/0.3)"/><circle cx="50" cy="300" r="1" fill="hsl(var(--accent-foreground)/0.3)"/><circle cx="450" cy="450" r="2" fill="hsl(var(--accent-foreground)/0.3)"/></pattern></defs><rect width="100%" height="100%" fill="url(%23p2)"/></svg>');
-    animation: move-stars 200s linear infinite;
+    animation: move-stars 200s linear infinite, twinkle 12s infinite;
   }
 
   .stars3 {
     background: transparent url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%"><defs><pattern id="p3" width="700" height="700" patternUnits="userSpaceOnUse"><circle cx="150" cy="500" r="2" fill="hsl(var(--primary-foreground)/0.2)"/><circle cx="600" cy="200" r="1.5" fill="hsl(var(--primary-foreground)/0.2)"/><circle cx="350" cy="350" r="1" fill="hsl(var(--primary-foreground)/0.2)"/></pattern></defs><rect width="100%" height="100%" fill="url(%23p3)"/></svg>');
-    animation: move-stars 250s linear infinite;
+    animation: move-stars 250s linear infinite, twinkle 15s infinite;
   }
   
   @keyframes move-stars {
     from { transform: translateY(0); }
     to { transform: translateY(-1000px); }
+  }
+
+  @keyframes twinkle {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.5; }
   }
 
   /* Shooting Stars */
