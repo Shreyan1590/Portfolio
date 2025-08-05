@@ -1,3 +1,4 @@
+
 "use client";
 
 import { useState, useEffect } from "react";
@@ -321,3 +322,5 @@ ${planData.cardio ? `<p class="mt-4"><strong class="font-semibold text-accent">C
     </div>
   );
 }
+
+    
