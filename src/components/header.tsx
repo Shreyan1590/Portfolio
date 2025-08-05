@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { Code, User, Briefcase, Bot, Mail, Award, GraduationCap, Star, BookOpen, GitFork, Lightbulb, Rocket, Trophy, Rss, Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Sheet, SheetContent, SheetHeader, SheetTrigger, SheetClose } from "@/components/ui/sheet";
+import { Sheet, SheetContent, SheetHeader, SheetTrigger, SheetClose, SheetTitle } from "@/components/ui/sheet";
 import Link from "next/link";
 
 const navLinks = [
@@ -61,6 +61,7 @@ export function Header() {
             </SheetTrigger>
             <SheetContent side="right" className="w-full max-w-xs">
                 <SheetHeader className="flex flex-row justify-between items-center">
+                    <SheetTitle className="sr-only">Navigation Menu</SheetTitle>
                      <a href="#" className="flex items-center space-x-2">
                         <Bot className="h-6 w-6 text-primary" />
                         <span className="font-bold font-headline text-lg">
