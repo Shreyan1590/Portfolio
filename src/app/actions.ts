@@ -28,6 +28,10 @@ import {
   generateFitnessPlan,
   type GenerateFitnessPlanInput,
 } from "@/ai/flows/generate-fitness-plan";
+import {
+  portfolioChat,
+  type PortfolioChatInput,
+} from "@/ai/flows/portfolio-chatbot";
 
 
 export async function handleGenerateCoverLetter(input: GenerateCoverLetterInput) {
@@ -125,5 +129,19 @@ export async function handleGenerateFitnessPlan(input: GenerateFitnessPlanInput)
         console.error(e);
         const errorMessage = e instanceof Error ? e.message : "An unknown error occurred.";
         return { error: `Failed to generate fitness plan: ${errorMessage}. Please try again later.` };
+    }
+}
+
+export async function handlePortfolioChat(input: PortfolioChatInput) {
+    try {
+        const output = await portfolioChat(input);
+        if (!output.response) {
+            return { error: "The chatbot did not return a response. Please try again." };
+        }
+        return { response: output.response };
+    } catch (e) {
+        console.error(e);
+        const errorMessage = e instanceof Error ? e.message : "An unknown error occurred.";
+        return { error: `Failed to get a response from the chatbot: ${errorMessage}. Please try again later.` };
     }
 }

@@ -8,3 +8,4 @@ import '@/ai/flows/generate-speech.ts';
 import '@/ai/flows/analyze-code.ts';
 import '@/ai/flows/generate-product-description.ts';
 import '@/ai/flows/generate-fitness-plan.ts';
+import '@/ai/flows/portfolio-chatbot.ts';
