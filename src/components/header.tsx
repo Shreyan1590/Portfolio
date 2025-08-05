@@ -1,13 +1,22 @@
 "use client";
 
-import { Code, User, Briefcase, Bot, Mail, Award } from "lucide-react";
+import { Code, User, Briefcase, Bot, Mail, Award, GraduationCap, Star, BookOpen, GitFork, Lightbulb, Rocket, Trophy, Rss } from "lucide-react";
 
 const navLinks = [
   { href: "#about", label: "About", icon: User },
   { href: "#skills", label: "Skills", icon: Code },
   { href: "#experience", label: "Experience", icon: Briefcase },
   { href: "#projects", label: "Projects", icon: Bot },
+  { href: "#case-studies", label: "Case Studies", icon: BookOpen },
   { href: "#certifications", label: "Certs", icon: Award },
+  { href: "#education", label: "Education", icon: GraduationCap },
+  { href: "#achievements", label: "Awards", icon: Trophy },
+  { href: "#open-source", label: "OSS", icon: GitFork },
+  { href: "#testimonials", label: "Testimonials", icon: Star },
+  { href: "#blog", label: "Blog", icon: Rss },
+  { href: "#tech-philosophy", label: "Philosophy", icon: Lightbulb },
+  { href: "#services", label: "Services", icon: Rocket },
+  { href: "#ai-tool", label: "AI Tool", icon: Bot },
   { href: "#contact", label: "Contact", icon: Mail },
 ];
 
@@ -23,13 +32,13 @@ export function Header() {
             </span>
           </a>
         </div>
-        <div className="flex flex-1 items-center justify-end space-x-2">
-          <nav className="hidden md:flex gap-6">
+        <div className="flex flex-1 items-center justify-end space-x-2 overflow-x-auto">
+          <nav className="flex gap-4 md:gap-6">
             {navLinks.map((link) => (
               <a
                 key={link.href}
                 href={link.href}
-                className="transition-colors text-foreground/70 hover:text-primary text-sm font-medium"
+                className="transition-colors text-foreground/70 hover:text-primary text-sm font-medium whitespace-nowrap"
               >
                 {link.label}
               </a>

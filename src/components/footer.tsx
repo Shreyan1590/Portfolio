@@ -9,7 +9,7 @@ export function Footer() {
           Get In Touch
         </h2>
         <p className="text-muted-foreground max-w-xl mx-auto mb-6">
-          I'm currently open to new opportunities. Feel free to reach out if you have a project in mind or just want to connect.
+          I'm currently open to new opportunities and collaborations. Whether you have a project in mind or just want to connect, feel free to reach out. Let's build something amazing together.
         </p>
         <div className="flex justify-center items-center gap-4 mb-8">
           <Button variant="outline" size="icon" asChild>
