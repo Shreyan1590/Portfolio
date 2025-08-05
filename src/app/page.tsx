@@ -6,15 +6,6 @@ import { SkillsSection } from "@/components/sections/skills";
 import { ExperienceSection } from "@/components/sections/experience";
 import { ProjectsSection } from "@/components/sections/projects";
 import { CoverLetterSection } from "@/components/sections/cover-letter";
-import { CertificationsSection } from "@/components/sections/certifications";
-import { EducationSection } from "@/components/sections/education";
-import { TestimonialsSection } from "@/components/sections/testimonials";
-import { CaseStudiesSection } from "@/components/sections/case-studies";
-import { OpenSourceSection } from "@/components/sections/open-source";
-import { TechPhilosophySection } from "@/components/sections/tech-philosophy";
-import { ServicesSection } from "@/components/sections/services";
-import { AchievementsSection } from "@/components/sections/achievements";
-import { BlogSection } from "@/components/sections/blog";
 
 
 export default function Home() {
@@ -28,15 +19,6 @@ export default function Home() {
           <SkillsSection />
           <ExperienceSection />
           <ProjectsSection />
-          <CaseStudiesSection />
-          <CertificationsSection />
-          <EducationSection />
-          <AchievementsSection />
-          <OpenSourceSection />
-          <TestimonialsSection />
-          <BlogSection />
-          <TechPhilosophySection />
-          <ServicesSection />
           <CoverLetterSection />
         </div>
       </main>

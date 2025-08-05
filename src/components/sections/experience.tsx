@@ -1,20 +1,6 @@
-import { Briefcase, BookOpen } from "lucide-react";
+import { BookOpen, GraduationCap, School } from "lucide-react";
 
 const experienceData = [
-  {
-    role: "Lead AI Engineer",
-    company: "Nexus AI",
-    period: "2022 - Present",
-    description: "Architected and led the development of a generative AI platform, integrating multiple LLMs to serve over 10,000 users. Improved model response times by 40% through advanced caching and quantization techniques.",
-    icon: Briefcase,
-  },
-  {
-    role: "Energy Consumption Prediction for Accurate Forecasting",
-    company: "Published in International Journal of Energy Research (IJER)",
-    period: "2025",
-    description: "Developed a predictor using Random Forest (89.5% accuracy) and KNN (83.2% accuracy) to reduce prediction errors by 22% versus traditional methods. Implemented in campus smart buildings, it achieved a 15% reduction in energy waste through data-driven load optimization.",
-    icon: BookOpen,
-  },
   {
     role: "AI-Based Error Detection System using JS",
     company: "A Project based on Artificial Intelligence",
@@ -23,25 +9,39 @@ const experienceData = [
     icon: BookOpen,
   },
   {
-    role: "Senior Software Engineer",
-    company: "TechCorp",
-    period: "2020 - 2022",
-    description: "Led the development of a high-traffic e-commerce platform, improving performance by 30%. Mentored junior engineers and championed best practices in code quality and testing using React and Node.js.",
-    icon: Briefcase,
+    role: "Energy Consumption Prediction for Accurate Forecasting",
+    company: "Published in International Journal of Energy Research (IJER)",
+    period: "2025",
+    description: "Developed a predictor using Random Forest (89.5% accuracy) and KNN (83.2% accuracy) to reduce prediction errors by 22% versus traditional methods. Implemented in campus smart buildings, it achieved a 15% reduction in energy waste through data-driven load optimization.",
+    icon: BookOpen,
   },
-    {
-    role: "Software Engineer",
-    company: "Innovate Inc.",
-    period: "2018 - 2020",
-    description: "Developed and maintained features for a SaaS product using React and Django. Collaborated in an agile team to deliver features on a bi-weekly sprint cycle, contributing to a 20% increase in user engagement.",
-    icon: Briefcase,
+   {
+    role: "Cyber Security Certification",
+    company: "LinkedIn Learning",
+    period: "Completed 2025",
+    description: "Completed 5+ hour course covering network security, data protection, identity management, incident response, and emerging areas like AI security and Cloud security.",
+    icon: BookOpen,
   },
-    {
-    role: "Software Engineer Intern",
-    company: "Data Solutions",
-    period: "Summer 2017",
-    description: "Assisted in building a data processing pipeline using Python and SQL, which helped automate internal reporting and saved hundreds of hours annually.",
-    icon: Briefcase,
+  {
+    role: "Bachelor of Technology in Computer Science",
+    company: "SIMATS School of Engineering, Saveetha University",
+    period: "2024 - Present",
+    description: "Specializing in Artificial Intelligence and Full Stack Development. Current CGPA: 8.38/10",
+    icon: GraduationCap,
+  },
+  {
+    role: "Higher Secondary Education (HSE)",
+    company: "Sree Narayana Guru Matric Higher Secondary School - Kanchipuram",
+    period: "2022 - 2024",
+    description: "",
+    icon: School,
+  },
+  {
+    role: "Secondary School Leaving Certificate (SSLC)",
+    company: "Sree Narayana Guru Matric Higher Secondary School - Kanchipuram",
+    period: "2021 - 2022",
+    description: "",
+    icon: School,
   },
 ];
 
