@@ -1,19 +1,35 @@
+"use client"
+
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Github, ExternalLink } from "lucide-react";
-import Image from "next/image";
+import { Github, ExternalLink, BarChart2, LineChart, PieChart } from "lucide-react";
 import Link from "next/link";
+import { Bar, BarChart, CartesianGrid, ResponsiveContainer, XAxis, YAxis, Tooltip, Legend, Line, Pie } from "recharts";
+
+const salesData = [
+  { name: 'Jan', revenue: 4000, profit: 2400 },
+  { name: 'Feb', revenue: 3000, profit: 1398 },
+  { name: 'Mar', revenue: 5000, profit: 9800 },
+  { name: 'Apr', revenue: 4780, profit: 3908 },
+  { name: 'May', revenue: 5890, profit: 4800 },
+  { name: 'Jun', revenue: 4390, profit: 3800 },
+];
+
+const categoryData = [
+  { name: 'Electronics', value: 400 },
+  { name: 'Clothing', value: 300 },
+  { name: 'Groceries', value: 300 },
+  { name: 'Books', value: 200 },
+];
+
 
 export default function DataVizDashboardPage() {
   const project = {
     title: "DataViz Dashboard",
     description: "An interactive dashboard for visualizing complex datasets, with dynamic charts, filtering capabilities, and data-driven components for business intelligence and analytics.",
-    image: "https://placehold.co/1200x600.png",
     stack: ["React", "D3.js", "Python", "Flask", "Pandas"],
-    liveUrl: "/projects/dataviz-dashboard",
     repoUrl: "#",
-    aiHint: "data dashboard charts"
   };
 
   return (
@@ -32,17 +48,43 @@ export default function DataVizDashboardPage() {
             </CardDescription>
           </CardHeader>
           <CardContent>
-            <div className="relative h-96 w-full rounded-lg overflow-hidden group shadow-2xl shadow-primary/20 mb-8">
-              <Image
-                src={project.image}
-                alt={`Screenshot of ${project.title}`}
-                layout="fill"
-                objectFit="cover"
-                className="transition-transform duration-500 group-hover:scale-105"
-                data-ai-hint={project.aiHint}
-              />
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
+              <Card>
+                <CardHeader>
+                  <CardTitle className="flex items-center gap-2 font-headline"><BarChart2/> Monthly Revenue</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <ResponsiveContainer width="100%" height={300}>
+                    <BarChart data={salesData}>
+                      <CartesianGrid strokeDasharray="3 3" />
+                      <XAxis dataKey="name" />
+                      <YAxis />
+                      <Tooltip />
+                      <Legend />
+                      <Bar dataKey="revenue" fill="hsl(var(--primary))" />
+                      <Bar dataKey="profit" fill="hsl(var(--accent))" />
+                    </BarChart>
+                  </ResponsiveContainer>
+                </CardContent>
+              </Card>
+               <Card>
+                <CardHeader>
+                  <CardTitle className="flex items-center gap-2 font-headline"><PieChart/> Sales by Category</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <ResponsiveContainer width="100%" height={300}>
+                    <PieChart>
+                      <Pie data={categoryData} dataKey="value" nameKey="name" cx="50%" cy="50%" outerRadius={100} fill="hsl(var(--primary))" label />
+                      <Tooltip />
+                      <Legend />
+                    </PieChart>
+                  </ResponsiveContainer>
+                </CardContent>
+              </Card>
             </div>
-            <div className="max-w-3xl mx-auto">
+
+            <div className="max-w-3xl mx-auto mt-12">
+              <h3 className="text-3xl font-headline font-bold text-center mb-8">About This Project</h3>
               <p className="text-lg text-muted-foreground mb-6">{project.description}</p>
               
               <div className="mb-8">

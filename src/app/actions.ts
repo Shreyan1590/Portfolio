@@ -16,6 +16,19 @@ import {
   generateSpeech,
   type GenerateSpeechInput,
 } from "@/ai/flows/generate-speech";
+import {
+  analyzeCode,
+  type AnalyzeCodeInput,
+} from "@/ai/flows/analyze-code";
+import {
+  generateProductDescription,
+  type GenerateProductDescriptionInput,
+} from "@/ai/flows/generate-product-description";
+import {
+  generateFitnessPlan,
+  type GenerateFitnessPlanInput,
+} from "@/ai/flows/generate-fitness-plan";
+
 
 export async function handleGenerateCoverLetter(input: GenerateCoverLetterInput) {
   try {
@@ -71,4 +84,46 @@ export async function handleGenerateSpeech(input: GenerateSpeechInput) {
     const errorMessage = e instanceof Error ? e.message : "An unknown error occurred.";
     return { error: `Failed to generate speech: ${errorMessage}. Please try again later.` };
   }
+}
+
+export async function handleAnalyzeCode(input: AnalyzeCodeInput) {
+    try {
+        const output = await analyzeCode(input);
+        if (!output.analysis) {
+            return { error: "The code analysis was empty. Please try again." };
+        }
+        return { analysis: output.analysis };
+    } catch (e) {
+        console.error(e);
+        const errorMessage = e instanceof Error ? e.message : "An unknown error occurred.";
+        return { error: `Failed to analyze code: ${errorMessage}. Please try again later.` };
+    }
+}
+
+export async function handleGenerateProductDescription(input: GenerateProductDescriptionInput) {
+    try {
+        const output = await generateProductDescription(input);
+        if (!output.description) {
+            return { error: "The generated description was empty. Please try again." };
+        }
+        return { description: output.description };
+    } catch (e) {
+        console.error(e);
+        const errorMessage = e instanceof Error ? e.message : "An unknown error occurred.";
+        return { error: `Failed to generate description: ${errorMessage}. Please try again later.` };
+    }
+}
+
+export async function handleGenerateFitnessPlan(input: GenerateFitnessPlanInput) {
+    try {
+        const output = await generateFitnessPlan(input);
+        if (!output.plan) {
+            return { error: "The generated plan was empty. Please try again." };
+        }
+        return { plan: output.plan };
+    } catch (e) {
+        console.error(e);
+        const errorMessage = e instanceof Error ? e.message : "An unknown error occurred.";
+        return { error: `Failed to generate fitness plan: ${errorMessage}. Please try again later.` };
+    }
 }
