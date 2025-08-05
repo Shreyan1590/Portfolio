@@ -4,7 +4,7 @@ import { ArrowRight, Download } from "lucide-react";
 export function HeroSection() {
   return (
     <section id="hero" className="relative w-full h-[90vh] min-h-[600px] flex items-center justify-center text-center overflow-hidden">
-      <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-br from-primary/30 via-transparent to-accent/30 opacity-40 animate-[spin_20s_linear_infinite]" />
+      <div className="absolute top-0 left-0 w-full h-full bg-grid-primary/10 [mask-image:radial-gradient(ellipse_at_center,transparent_20%,black)] animate-[grid-scroll_60s_linear_infinite]" />
       <div className="absolute pointer-events-none inset-0 flex items-center justify-center bg-background [mask-image:radial-gradient(ellipse_at_center,transparent_10%,black)]"></div>
       <div className="container relative z-10 px-4 sm:px-6 lg:px-8">
         <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-headline font-extrabold tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-primary via-accent to-primary">
