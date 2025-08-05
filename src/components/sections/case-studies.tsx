@@ -71,9 +71,8 @@ export function CaseStudiesSection() {
                 <Image
                   src={study.image}
                   alt={`Case study for ${study.title}`}
-                  layout="fill"
-                  objectFit="cover"
-                  className="transition-transform duration-500 hover:scale-105"
+                  fill
+                  className="object-cover transition-transform duration-500 hover:scale-105"
                   data-ai-hint={study.aiHint}
                 />
                  <div className="absolute inset-0 bg-gradient-to-t from-card/80 to-transparent lg:bg-gradient-to-r" />

@@ -72,9 +72,8 @@ export default function ProductDetailPage({ params }: { params: { productId: str
                   <Image
                     src={product.image}
                     alt={`Image of ${product.name}`}
-                    layout="fill"
-                    objectFit="cover"
-                    className="transition-transform duration-500 group-hover:scale-105"
+                    fill
+                    className="object-cover transition-transform duration-500 group-hover:scale-105"
                     data-ai-hint={product.aiHint}
                   />
                 </div>

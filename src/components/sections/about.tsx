@@ -25,9 +25,8 @@ export function AboutSection() {
           <Image
             src="/portrait.png"
             alt="A portrait of Shreyan S."
-            layout="fill"
-            objectFit="cover"
-            className="transition-transform duration-500 group-hover:scale-110"
+            fill
+            className="object-cover transition-transform duration-500 group-hover:scale-110"
             data-ai-hint="professional portrait"
           />
         </div>

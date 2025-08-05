@@ -10,9 +10,8 @@ export function EcommerceHero() {
                 <Image
                     src="https://placehold.co/1200x500.png"
                     alt="Abstract background for featured product"
-                    layout="fill"
-                    objectFit="cover"
-                    className="opacity-20"
+                    fill
+                    className="object-cover opacity-20"
                     data-ai-hint="abstract technology background"
                 />
                  <div className="absolute inset-0 bg-gradient-to-r from-background via-background/50 to-transparent" />

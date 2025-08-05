@@ -136,9 +136,8 @@ export default function GenerativeArtStudioPage() {
                 <Image
                   src={project.image}
                   alt="Placeholder for generated art"
-                  layout="fill"
-                  objectFit="cover"
-                  className="transition-opacity"
+                  fill
+                  className="object-cover transition-opacity"
                   data-ai-hint={project.aiHint}
                 />
             )}
@@ -146,9 +145,8 @@ export default function GenerativeArtStudioPage() {
               <Image
                 src={generatedImage}
                 alt="Generated AI Art"
-                layout="fill"
-                objectFit="contain"
-                className="transition-opacity duration-500"
+                fill
+                className="object-contain transition-opacity duration-500"
               />
             )}
           </div>

@@ -76,9 +76,8 @@ export function ProjectsSection() {
               <Image
                 src={project.image}
                 alt={`Screenshot of ${project.title}`}
-                layout="fill"
-                objectFit="cover"
-                className="transition-transform duration-500 group-hover:scale-105"
+                fill
+                className="object-cover transition-transform duration-500 group-hover:scale-105"
                 data-ai-hint={project.aiHint}
               />
             </div>
