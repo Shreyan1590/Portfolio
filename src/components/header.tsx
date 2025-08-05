@@ -27,8 +27,8 @@ const CustomLogo = () => (
       xmlns="http://www.w3.org/2000/svg"
       className="h-6 w-6 text-primary"
     >
-        <path d="M10 4C5.02944 4 1 8.02944 1 13C1 17.9706 5.02944 22 10 22" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-        <path d="M14 20C18.9706 20 23 15.9706 23 11C23 6.02944 18.9706 2 14 2" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+      <path d="M10 4C5.02944 4 1 8.02944 1 13C1 17.9706 5.02944 22 10 22" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+      <path d="M14 20C18.9706 20 23 15.9706 23 11C23 6.02944 18.9706 2 14 2" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
     </svg>
 );
 
