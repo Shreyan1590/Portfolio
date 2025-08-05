@@ -13,11 +13,43 @@ import { handleAnalyzeCode } from "@/app/actions";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Button } from "@/components/ui/button";
 import { ProjectPageHeader } from "@/components/projects/project-page-header";
+import { useTypewriter } from "@/hooks/use-typewriter";
 
 const formSchema = z.object({
   code: z.string().min(20, "Please enter at least 20 characters of code."),
   language: z.string().min(1, "Please select a language."),
 });
+
+function AnalysisDisplay({ rawText }: { rawText: string; }) {
+  const animatedText = useTypewriter(rawText, 10);
+
+  // A simple markdown to HTML converter
+  const convertMarkdownToHTML = (markdown: string) => {
+    let html = markdown;
+    // Bold
+    html = html.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+    // Code blocks
+    html = html.replace(/```(.*?)\n([\s\S]*?)```/g, '<pre class="whitespace-pre-wrap font-code text-sm bg-secondary/30 p-4 rounded-md"><code>$2</code></pre>');
+    // Headings
+    html = html.replace(/^### (.*$)/gim, '<h3>$1</h3>');
+    html = html.replace(/^## (.*$)/gim, '<h2>$1</h2>');
+    html = html.replace(/^# (.*$)/gim, '<h1>$1</h1>');
+    // List items
+     html = html.replace(/^\* (.*$)/gim, '<li>$1</li>');
+     html = html.replace(/^\d+\. (.*$)/gim, '<li>$1</li>');
+    // Replace newlines with <br> for paragraphs
+    html = html.split('\n\n').map(p => `<p>${p.replace(/\n/g, '<br/>')}</p>`).join('');
+
+    return html;
+  };
+
+  const processedHtml = convertMarkdownToHTML(animatedText);
+  
+  return (
+    <div className="prose prose-sm dark:prose-invert max-w-none font-body" dangerouslySetInnerHTML={{ __html: processedHtml }} />
+  );
+}
+
 
 export default function AiCodeAssistantPage() {
   const [analysis, setAnalysis] = useState<string | null>(null);
@@ -148,7 +180,7 @@ export default function AiCodeAssistantPage() {
                   </div>
               )}
               {analysis && (
-                  <pre className="whitespace-pre-wrap font-code text-sm bg-secondary/30 p-4 rounded-md">{analysis}</pre>
+                  <AnalysisDisplay rawText={analysis} />
               )}
             </CardContent>
           </Card>
