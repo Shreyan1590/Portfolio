@@ -52,14 +52,7 @@ const generateProductDescriptionFlow = ai.defineFlow(
     outputSchema: GenerateProductDescriptionOutputSchema,
   },
   async input => {
-    const {output} = await ai.generate({
-      model: 'googleai/gemini-1.5-flash-latest',
-      prompt: prompt.prompt,
-      input,
-      output: {
-        schema: prompt.output.schema,
-      },
-    });
+    const {output} = await prompt(input);
     return output!;
   }
 );
