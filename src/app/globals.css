@@ -139,11 +139,11 @@
   }
   
   @keyframes shooting {
-    0% { transform: translateX(0) translateY(0) rotate(-45deg); }
-    100% { transform: translateX(100vw) translateY(100vh) rotate(-45deg); }
+    0% { transform: translateX(0) translateY(0) rotate(135deg); }
+    100% { transform: translateX(-100vw) translateY(100vh) rotate(135deg); }
   }
   
-  .shooting-star:nth-child(1) { top: -50%; left: 0%; animation-delay: 1.3s; }
-  .shooting-star:nth-child(2) { top: -50%; left: 30%; animation-delay: 2.8s; }
-  .shooting-star:nth-child(3) { top: -50%; left: 60%; animation-delay: 0.6s; }
+  .shooting-star:nth-child(1) { top: -50%; right: 0%; animation-delay: 1.3s; }
+  .shooting-star:nth-child(2) { top: -50%; right: 30%; animation-delay: 2.8s; }
+  .shooting-star:nth-child(3) { top: -50%; right: 60%; animation-delay: 0.6s; }
 }
