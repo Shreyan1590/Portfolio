@@ -8,6 +8,9 @@ import React, { useState, useEffect } from 'react';
 export function HeroSection() {
   return (
     <section id="hero" className="relative w-full h-[90vh] min-h-[700px] flex items-center justify-center text-center overflow-hidden">
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
+        <div className="absolute -z-10 h-[40rem] w-[40rem] animate-gradient-spin rounded-full bg-[conic-gradient(from_0deg,hsl(var(--primary)),hsl(var(--accent))_50%,hsl(var(--primary))_100%)] opacity-20 blur-3xl" />
+      </div>
       <div className="absolute pointer-events-none inset-0 flex items-center justify-center bg-background [mask-image:radial-gradient(ellipse_at_center,transparent_10%,black)]"></div>
       <div className="container relative z-10 px-4 sm:px-6 lg:px-8">
         <h1 
