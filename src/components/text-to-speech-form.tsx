@@ -24,10 +24,10 @@ import { Card, CardContent } from "@/components/ui/card";
 const voices = [
     { id: 'Algenib', name: 'Algenib (Male)' },
     { id: 'Achernar', name: 'Achernar (Male)' },
-    { id: 'Sirius', name: 'Sirius (Male)' },
+    { id: 'Umbriel', name: 'Umbriel (Male)' },
     { id: 'Vega', name: 'Vega (Female)' },
     { id: 'Canopus', name: 'Canopus (Female)' },
-    { id: 'Procyon', name: 'Procyon (Female)' },
+    { id: 'Leda', name: 'Leda (Female)' },
 ];
 
 const formSchema = z.object({
