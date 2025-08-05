@@ -1,6 +1,8 @@
+
 import type { Metadata } from "next";
 import { Toaster } from "@/components/ui/toaster";
 import { Chatbot } from "@/components/chatbot";
+import { Background } from "@/components/background";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -45,12 +47,7 @@ export default function RootLayout({
         />
       </head>
       <body className="font-body antialiased">
-        <div className="stars"></div>
-        <div className="stars2"></div>
-        <div className="stars3"></div>
-        <div className="shooting-star"></div>
-        <div className="shooting-star"></div>
-        <div className="shooting-star"></div>
+        <Background />
         {children}
         <Toaster />
         <Chatbot />
