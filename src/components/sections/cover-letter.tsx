@@ -13,7 +13,7 @@ export function CoverLetterSection() {
           Leverage the power of AI to generate a personalized cover letter. Just paste your resume details and the job description below.
         </p>
       </div>
-      <Card className="max-w-4xl mx-auto bg-card/50">
+      <Card className="max-w-4xl mx-auto bg-secondary/20">
         <CardHeader className="flex flex-row items-center gap-4">
           <Bot className="h-8 w-8 text-primary" />
           <div>

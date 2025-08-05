@@ -42,7 +42,7 @@ export function ProjectsSection() {
       </h2>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
         {projectsData.map((project) => (
-          <Card key={project.title} className="flex flex-col overflow-hidden group hover:shadow-lg hover:shadow-primary/20 transition-shadow duration-300">
+          <Card key={project.title} className="flex flex-col overflow-hidden group hover:shadow-lg hover:shadow-primary/20 transition-shadow duration-300 bg-secondary/20">
             <div className="relative h-48 w-full overflow-hidden">
               <Image
                 src={project.image}
@@ -60,7 +60,7 @@ export function ProjectsSection() {
             <CardContent className="flex-grow">
               <div className="flex flex-wrap gap-2">
                 {project.stack.map((tech) => (
-                  <Badge key={tech} variant="secondary" className="bg-secondary/50 text-accent">{tech}</Badge>
+                  <Badge key={tech} variant="secondary">{tech}</Badge>
                 ))}
               </div>
             </CardContent>
@@ -71,7 +71,7 @@ export function ProjectsSection() {
                   Code
                 </a>
               </Button>
-              <Button variant="outline" size="sm" asChild className="border-accent text-accent hover:bg-accent hover:text-accent-foreground">
+              <Button variant="outline" size="sm" asChild>
                 <a href={project.liveUrl} target="_blank" rel="noopener noreferrer">
                   <ExternalLink className="mr-2 h-4 w-4" />
                   Live Demo

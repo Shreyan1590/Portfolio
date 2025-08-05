@@ -30,7 +30,7 @@ export function SkillsSection() {
       </h2>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
         {skillsData.map((category) => (
-          <Card key={category.category} className="bg-card/50 border-border/50 backdrop-blur-sm">
+          <Card key={category.category} className="bg-secondary/20 border-border/50 backdrop-blur-sm">
             <CardHeader>
               <CardTitle className="text-xl font-headline text-primary">{category.category}</CardTitle>
             </CardHeader>
