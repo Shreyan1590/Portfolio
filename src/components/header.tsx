@@ -19,36 +19,17 @@ const navLinks = [
 ];
 
 const CustomLogo = () => (
-  <svg
-    width="24"
-    height="24"
-    viewBox="0 0 24 24"
-    fill="none"
-    xmlns="http://www.w3.org/2000/svg"
-    className="h-6 w-6 text-primary"
-  >
-    <path
-      d="M12 2L2 7V17L12 22L22 17V7L12 2Z"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    />
-    <path
-      d="M2 7L12 12L22 7"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    />
-    <path
-      d="M12 12V22"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    />
-  </svg>
+    <svg
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      className="h-6 w-6 text-primary"
+    >
+        <path d="M9 8C5 8 5 12 9 12H15C19 12 19 16 15 16" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+        <path d="M15 8C19 8 19 12 15 12H9C5 12 5 16 9 16" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" strokeDasharray="1 22"/>
+    </svg>
 );
 
 
