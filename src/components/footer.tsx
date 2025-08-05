@@ -1,4 +1,4 @@
-import { Github, Linkedin, Mail } from "lucide-react";
+import { Github, Linkedin, Mail, Phone } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 export function Footer() {
@@ -13,18 +13,23 @@ export function Footer() {
         </p>
         <div className="flex justify-center items-center gap-4 mb-8">
           <Button variant="outline" size="icon" asChild>
-            <a href="https://github.com/shreyans" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
+            <a href="https://github.com/Shreyan1590" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
               <Github className="h-5 w-5" />
             </a>
           </Button>
           <Button variant="outline" size="icon" asChild>
-            <a href="https://linkedin.com/in/shreyans" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+            <a href="https://www.linkedin.com/in/shreyan-s2596/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
               <Linkedin className="h-5 w-5" />
             </a>
           </Button>
           <Button variant="outline" size="icon" asChild>
-            <a href="mailto:shreyan.s@example.com" aria-label="Email">
+            <a href="mailto:shreyanofficial25@gmail.com" aria-label="Email">
               <Mail className="h-5 w-5" />
+            </a>
+          </Button>
+          <Button variant="outline" size="icon" asChild>
+            <a href="tel:+919894837250" aria-label="Phone">
+              <Phone className="h-5 w-5" />
             </a>
           </Button>
         </div>
