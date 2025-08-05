@@ -30,13 +30,18 @@ export async function analyzeCode(
   return analyzeCodeFlow(input);
 }
 
-const prompt = ai.definePrompt({
-  name: 'analyzeCodePrompt',
-  input: {schema: AnalyzeCodeInputSchema},
-  output: {schema: AnalyzeCodeOutputSchema},
-  prompt: `You are an expert programmer and code reviewer.
+const analyzeCodeFlow = ai.defineFlow(
+  {
+    name: 'analyzeCodeFlow',
+    inputSchema: AnalyzeCodeInputSchema,
+    outputSchema: AnalyzeCodeOutputSchema,
+  },
+  async input => {
+    const {output} = await ai.generate({
+      model: 'googleai/gemini-1.5-flash-latest',
+      prompt: `You are an expert programmer and code reviewer.
 
-  Analyze the following {{{language}}} code snippet. Provide a detailed analysis covering these points:
+  Analyze the following ${input.language} code snippet. Provide a detailed analysis covering these points:
   1.  **Code Quality:** Assess readability, maintainability, and adherence to best practices.
   2.  **Bug Detection:** Identify any potential bugs, logical errors, or edge cases that might cause issues.
   3.  **Performance:** Suggest any possible performance optimizations.
@@ -45,20 +50,14 @@ const prompt = ai.definePrompt({
   Format the output in clean markdown.
 
   Code Snippet:
-  \`\`\`{{{language}}}
-  {{{code}}}
+  \`\`\`${input.language}
+  ${input.code}
   \`\`\`
   `,
-});
-
-const analyzeCodeFlow = ai.defineFlow(
-  {
-    name: 'analyzeCodeFlow',
-    inputSchema: AnalyzeCodeInputSchema,
-    outputSchema: AnalyzeCodeOutputSchema,
-  },
-  async input => {
-    const {output} = await prompt(input);
+      output: {
+        schema: AnalyzeCodeOutputSchema,
+      },
+    });
     return output!;
   }
 );
