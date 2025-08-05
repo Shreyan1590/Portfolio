@@ -30,7 +30,19 @@ interface WorkoutExercise {
   rest: string;
 }
 
-interface Plan {
+interface MealOptions {
+  breakfast: string[];
+  lunch: string[];
+  dinner: string[];
+}
+
+interface PlanData {
+  workout: WorkoutExercise[];
+  cardio: string[];
+  meals: MealOptions;
+}
+
+interface GeneratedPlan {
   workout: WorkoutExercise[];
   cardio?: string;
   meals: {
@@ -40,7 +52,24 @@ interface Plan {
   };
 }
 
-const hardcodedPlans: Record<string, Record<string, Plan>> = {
+// Fisher-Yates shuffle algorithm
+function shuffle<T>(array: T[]): T[] {
+  let currentIndex = array.length, randomIndex;
+  const newArray = [...array];
+
+  while (currentIndex !== 0) {
+    randomIndex = Math.floor(Math.random() * currentIndex);
+    currentIndex--;
+
+    [newArray[currentIndex], newArray[randomIndex]] = [
+      newArray[randomIndex], newArray[currentIndex]];
+  }
+
+  return newArray;
+}
+
+
+const planDatabase: Record<string, Record<string, PlanData>> = {
   "weight-loss": {
     beginner: {
       workout: [
@@ -48,12 +77,15 @@ const hardcodedPlans: Record<string, Record<string, Plan>> = {
         { name: "Push-ups (on knees)", sets: "3", reps: "10", rest: "60s" },
         { name: "Plank", sets: "3", reps: "30s hold", rest: "60s" },
         { name: "Jumping Jacks", sets: "3", reps: "30s", rest: "60s" },
+        { name: "Glute Bridges", sets: "3", reps: "15", rest: "45s" },
+        { name: "Lunges", sets: "3", reps: "10/leg", rest: "60s" },
+        { name: "Bird-Dog", sets: "3", reps: "12/side", rest: "45s" },
       ],
-      cardio: "20 minutes of brisk walking",
+      cardio: ["20 minutes of brisk walking", "15 minutes on a stationary bike", "20 minutes of light jogging"],
       meals: {
-        breakfast: "Oatmeal with berries and a sprinkle of nuts.",
-        lunch: "Grilled chicken salad with mixed greens and a light vinaigrette.",
-        dinner: "Baked salmon with steamed vegetables and quinoa.",
+        breakfast: ["Oatmeal with berries and a sprinkle of nuts.", "Greek yogurt with fruit.", "Two scrambled eggs with spinach."],
+        lunch: ["Grilled chicken salad with mixed greens and a light vinaigrette.", "Quinoa bowl with black beans and corn.", "Turkey and avocado on whole wheat bread."],
+        dinner: ["Baked salmon with steamed vegetables and quinoa.", "Lean ground turkey stir-fry with brown rice.", "Black bean soup with a side salad."],
       },
     },
     intermediate: {
@@ -62,12 +94,15 @@ const hardcodedPlans: Record<string, Record<string, Plan>> = {
         { name: "Dumbbell Bench Press", sets: "3", reps: "12", rest: "60s" },
         { name: "Russian Twists", sets: "3", reps: "20 (total)", rest: "60s" },
         { name: "Burpees", sets: "3", reps: "10", rest: "90s" },
+        { name: "Dumbbell Rows", sets: "3", reps: "12/arm", rest: "60s" },
+        { name: "Overhead Press", sets: "3", reps: "10", rest: "60s" },
+        { name: "Hanging Knee Raises", sets: "3", reps: "15", rest: "60s" },
       ],
-      cardio: "30 minutes on the elliptical",
+      cardio: ["30 minutes on the elliptical", "25 minutes of interval running", "20 minutes on the rowing machine"],
        meals: {
-        breakfast: "Scrambled eggs with spinach and whole-wheat toast.",
-        lunch: "Lean turkey wrap with avocado and vegetables.",
-        dinner: "Stir-fried tofu with brown rice and a variety of colorful peppers.",
+        breakfast: ["Scrambled eggs with spinach and whole-wheat toast.", "Protein smoothie with almond milk, spinach, and banana.", "Cottage cheese with pineapple chunks."],
+        lunch: ["Lean turkey wrap with avocado and vegetables.", "Large salad with grilled shrimp, chickpeas, and feta cheese.", "Chicken and vegetable skewers with a side of couscous."],
+        dinner: ["Stir-fried tofu with brown rice and a variety of colorful peppers.", "Grilled tilapia with roasted asparagus and sweet potato wedges.", "Lean beef and vegetable soup."],
       },
     },
      advanced: {
@@ -76,12 +111,15 @@ const hardcodedPlans: Record<string, Record<string, Plan>> = {
         { name: "Pull-ups", sets: "4", reps: "To failure", rest: "90s" },
         { name: "Kettlebell Swings", sets: "4", reps: "15", rest: "60s" },
         { name: "Box Jumps", sets: "3", reps: "10", rest: "90s" },
+        { name: "Deadlifts", sets: "4", reps: "6", rest: "120s" },
+        { name: "Incline Dumbbell Press", sets: "4", reps: "10", rest: "75s" },
+        { name: "Toes-to-Bar", sets: "3", reps: "12", rest: "60s" },
       ],
-      cardio: "20 minutes of High-Intensity Interval Training (HIIT) on a treadmill.",
+      cardio: ["20 minutes of High-Intensity Interval Training (HIIT) on a treadmill.", "45-minute spin class", "30 minutes on the StairMaster"],
       meals: {
-        breakfast: "Greek yogurt with granola and a scoop of protein powder.",
-        lunch: "Quinoa bowl with black beans, corn, grilled steak, and salsa.",
-        dinner: "Cod fillet with roasted asparagus and sweet potato.",
+        breakfast: ["Greek yogurt with granola and a scoop of protein powder.", "Omelette with four egg whites, bell peppers, onions, and lean ham.", "Protein pancakes with a handful of berries."],
+        lunch: ["Quinoa bowl with black beans, corn, grilled steak, and salsa.", "Large sushi roll with brown rice and plenty of fish.", "Bison burger (no bun) with a large side salad."],
+        dinner: ["Cod fillet with roasted asparagus and sweet potato.", "Chicken breast stuffed with feta and spinach, with a side of wild rice.", "Lean pork chops with a roasted vegetable medley."],
       },
     }
   },
@@ -92,11 +130,15 @@ const hardcodedPlans: Record<string, Record<string, Plan>> = {
         { name: "Dumbbell Bench Press", sets: "3", reps: "10", rest: "60s" },
         { name: "Dumbbell Rows", sets: "3", reps: "10/arm", rest: "60s" },
         { name: "Bicep Curls", sets: "3", reps: "12", rest: "45s" },
+        { name: "Tricep Dips (on bench)", sets: "3", reps: "10", rest: "45s" },
+        { name: "Leg Press", sets: "3", reps: "12", rest: "60s" },
+        { name: "Lat Pulldowns", sets: "3", reps: "12", rest: "60s" },
       ],
+      cardio: [],
        meals: {
-        breakfast: "Protein shake with banana and oats.",
-        lunch: "Chicken breast with brown rice and broccoli.",
-        dinner: "Ground beef with pasta and a side salad.",
+        breakfast: ["Protein shake with banana and oats.", "Scrambled eggs (3) with whole wheat toast.", "Greek yogurt with a scoop of protein powder and honey."],
+        lunch: ["Chicken breast with brown rice and broccoli.", "Tuna salad sandwich on whole wheat bread.", "Ground turkey with sweet potatoes and green beans."],
+        dinner: ["Ground beef with pasta and a side salad.", "Salmon fillet with quinoa and asparagus.", "Steak with a baked potato."],
       },
     },
     intermediate: {
@@ -105,11 +147,15 @@ const hardcodedPlans: Record<string, Record<string, Plan>> = {
         { name: "Bent-Over Rows", sets: "4", reps: "8-10", rest: "90s" },
         { name: "Overhead Press", sets: "3", reps: "10", rest: "60s" },
         { name: "Lat Pulldowns", sets: "3", reps: "12", rest: "60s" },
+        { name: "Barbell Squats", sets: "4", reps: "8", rest: "90s" },
+        { name: "Romanian Deadlifts", sets: "3", reps: "10", rest: "75s" },
+        { name: "Skull Crushers", sets: "3", reps: "12", rest: "60s" },
       ],
+      cardio: [],
        meals: {
-        breakfast: "Three-egg omelette with cheese and vegetables.",
-        lunch: "Large portion of chili with beans and lean ground turkey.",
-        dinner: "Pork chops with roasted potatoes and green beans.",
+        breakfast: ["Three-egg omelette with cheese and vegetables.", "Oatmeal with protein powder, nuts, and seeds.", "Breakfast burritos with eggs, sausage, and black beans."],
+        lunch: ["Large portion of chili with beans and lean ground turkey.", "Chicken thighs with white rice and roasted carrots.", "Beef and broccoli stir-fry."],
+        dinner: ["Pork chops with roasted potatoes and green beans.", "Shepherd's pie with a sweet potato topping.", "A large serving of lasagna."],
       },
     },
      advanced: {
@@ -118,15 +164,39 @@ const hardcodedPlans: Record<string, Record<string, Plan>> = {
         { name: "Deadlifts", sets: "3", reps: "5", rest: "2-3min" },
         { name: "Incline Dumbbell Press", sets: "4", reps: "8", rest: "90s" },
         { name: "Leg Press", sets: "4", reps: "12", rest: "90s" },
+        { name: "Weighted Pull-ups", sets: "4", reps: "6-8", rest: "90s" },
+        { name: "Dumbbell Shoulder Press", sets: "4", reps: "10", rest: "75s" },
+        { name: "Barbell Curls", sets: "4", reps: "8", rest: "60s" },
       ],
+      cardio: [],
        meals: {
-        breakfast: "Protein pancakes with maple syrup.",
-        lunch: "Salmon fillet with a large portion of white rice and avocado.",
-        dinner: "Steak with a loaded baked potato and a side of creamed spinach.",
+        breakfast: ["Protein pancakes with maple syrup.", "Six scrambled eggs with a side of bacon or sausage.", "A large bowl of oatmeal with double protein and nuts."],
+        lunch: ["Salmon fillet with a large portion of white rice and avocado.", "A footlong sub sandwich with double meat.", "A large burrito bowl with extra rice, beans, and meat."],
+        dinner: ["Steak with a loaded baked potato and a side of creamed spinach.", "A whole roasted chicken with potatoes and vegetables.", "Beef stroganoff with egg noodles."],
       },
     }
   }
 };
+
+
+function generateRandomPlan(sourcePlan: PlanData): GeneratedPlan {
+  const workout = shuffle(sourcePlan.workout).slice(0, 4 + Math.floor(Math.random() * 2)); // 4 or 5 exercises
+  const cardio = sourcePlan.cardio.length > 0 ? shuffle(sourcePlan.cardio)[0] : undefined;
+
+  const breakfast = shuffle(sourcePlan.meals.breakfast)[0];
+  const lunch = shuffle(sourcePlan.meals.lunch)[0];
+  const dinner = shuffle(sourcePlan.meals.dinner)[0];
+
+  return {
+    workout,
+    cardio,
+    meals: {
+      breakfast,
+      lunch,
+      dinner,
+    },
+  };
+}
 
 
 function PlanDisplay({ rawText }: { rawText: string; }) {
@@ -141,7 +211,7 @@ function PlanDisplay({ rawText }: { rawText: string; }) {
 
 
 export default function AiFitnessCoachPage() {
-  const [plan, setPlan] = useState<Plan | null>(null);
+  const [plan, setPlan] = useState<GeneratedPlan | null>(null);
   const [rawPlanText, setRawPlanText] = useState<string>('');
   const [isLoading, setIsLoading] = useState(false);
   const { toast } = useToast();
@@ -155,11 +225,11 @@ export default function AiFitnessCoachPage() {
     },
   });
   
-  function generatePlanText(planData: Plan, values: FormValues): string {
+  function generatePlanText(planData: GeneratedPlan, values: FormValues): string {
     const goalTitle = values.goal.replace('-', ' ').replace(/\b\w/g, l => l.toUpperCase());
     
     let text = `
-<h3 class="text-xl font-headline font-bold text-primary mb-4 flex items-center gap-2">📋 Your Custom Fitness Plan</h3>
+
 <div class="grid grid-cols-3 gap-4 mb-6 text-center">
   <div class="bg-primary/10 p-3 rounded-lg"><div class="font-bold text-primary">${goalTitle}</div><div class="text-xs text-muted-foreground">Goal</div></div>
   <div class="bg-primary/10 p-3 rounded-lg"><div class="font-bold text-primary">${values.level.charAt(0).toUpperCase() + values.level.slice(1)}</div><div class="text-xs text-muted-foreground">Level</div></div>
@@ -200,10 +270,9 @@ ${planData.cardio ? `<p class="mt-4"><strong class="font-semibold text-accent">C
     
     await new Promise(resolve => setTimeout(resolve, 500));
 
-    const goalKey = values.goal === 'cardio-endurance' || values.goal === 'flexibility' ? 'weight-loss' : values.goal;
-    const selectedPlan = hardcodedPlans[goalKey]?.[values.level];
+    const sourcePlan = planDatabase[values.goal]?.[values.level];
 
-    if (!selectedPlan) {
+    if (!sourcePlan) {
       toast({
         variant: "destructive",
         title: "Plan Not Found",
@@ -213,8 +282,9 @@ ${planData.cardio ? `<p class="mt-4"><strong class="font-semibold text-accent">C
       return;
     }
     
-    setPlan(selectedPlan);
-    setRawPlanText(generatePlanText(selectedPlan, values));
+    const newPlan = generateRandomPlan(sourcePlan);
+    setPlan(newPlan);
+    setRawPlanText(generatePlanText(newPlan, values));
     
     toast({
       title: "Success!",
@@ -322,5 +392,3 @@ ${planData.cardio ? `<p class="mt-4"><strong class="font-semibold text-accent">C
     </div>
   );
 }
-
-    
