@@ -10,7 +10,7 @@ const projectsData = [
     description: "A VS Code extension that provides intelligent code suggestions, bug detection, and documentation generation using fine-tuned models.",
     image: "https://placehold.co/600x400.png",
     stack: ["TypeScript", "Genkit", "Fine-tuning", "VS Code API"],
-    liveUrl: "#",
+    liveUrl: "/projects/ai-code-assistant",
     repoUrl: "#",
     aiHint: "code editor AI"
   },
@@ -19,7 +19,7 @@ const projectsData = [
     description: "A full-featured e-commerce platform built with a modern stack, focusing on performance, scalability, and user experience.",
     image: "https://placehold.co/600x400.png",
     stack: ["Next.js", "GraphQL", "Stripe", "PostgreSQL", "Tailwind CSS"],
-    liveUrl: "#",
+    liveUrl: "/projects/quantumleap-ecommerce",
     repoUrl: "#",
     aiHint: "online store shopping"
   },
@@ -28,7 +28,7 @@ const projectsData = [
     description: "A web-based whiteboard application that allows multiple users to draw and brainstorm together in real-time using WebSockets.",
     image: "https://placehold.co/600x400.png",
     stack: ["React", "Node.js", "Socket.IO", "Canvas API"],
-    liveUrl: "#",
+    liveUrl: "/projects/collaborative-whiteboard",
     repoUrl: "#",
     aiHint: "collaborative drawing"
   },
@@ -37,27 +37,27 @@ const projectsData = [
     description: "An interactive dashboard for visualizing complex datasets, with dynamic charts and filtering capabilities for business intelligence.",
     image: "https://placehold.co/600x400.png",
     stack: ["React", "D3.js", "Python", "Flask"],
-    liveUrl: "#",
+    liveUrl: "/projects/dataviz-dashboard",
     repoUrl: "#",
     aiHint: "charts graphs"
   },
-    {
-    title: "Automated CI/CD Pipeline",
-    description: "Designed and implemented a complete CI/CD pipeline that reduced deployment time by 70% and improved developer workflow.",
+  {
+    title: "AI Health & Fitness Coach",
+    description: "A personalized health coach app that uses AI to generate custom workout plans and meal recommendations based on user goals and biometrics.",
     image: "https://placehold.co/600x400.png",
-    stack: ["Docker", "Kubernetes", "GitHub Actions", "Terraform"],
-    liveUrl: "#",
+    stack: ["Genkit", "React Native", "Firebase", "Computer Vision"],
+    liveUrl: "/projects/ai-fitness-coach",
     repoUrl: "#",
-    aiHint: "devops pipeline"
+    aiHint: "fitness app tracker"
   },
   {
-    title: "Serverless Microservices API",
-    description: "Developed a set of serverless functions to handle user authentication, data processing, and third-party integrations for a mobile app.",
+    title: "Generative Art Studio",
+    description: "A creative platform where users can generate unique visual art from text prompts, leveraging advanced diffusion models.",
     image: "https://placehold.co/600x400.png",
-    stack: ["AWS Lambda", "API Gateway", "DynamoDB", "Serverless Framework"],
-    liveUrl: "#",
+    stack: ["Next.js", "Genkit", "Google Cloud", "Stripe"],
+    liveUrl: "/projects/generative-art-studio",
     repoUrl: "#",
-    aiHint: "cloud functions"
+    aiHint: "abstract digital art"
   }
 ];
 
@@ -100,7 +100,7 @@ export function ProjectsSection() {
                 </a>
               </Button>
               <Button variant="outline" size="sm" asChild>
-                <a href={project.liveUrl} target="_blank" rel="noopener noreferrer">
+                <a href={project.liveUrl}>
                   <ExternalLink className="mr-2 h-4 w-4" />
                   Live Demo
                 </a>
