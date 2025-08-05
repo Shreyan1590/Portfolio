@@ -3,8 +3,29 @@ import { Toaster } from "@/components/ui/toaster";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Shreyan.AI",
-  description: "Shreyan S. - Software Engineer Portfolio",
+  metadataBase: new URL('https://shreyan.site'),
+  title: "Shreyan.AI - Software Engineer Portfolio",
+  description: "Welcome to Shreyan's portfolio showcasing expertise in AI solutions, web development, and interactive UI/UX design. Explore innovative projects and creative solutions.",
+  keywords: ["Shreyan portfolio", "AI engineer", "full-stack developer", "Next.js", "Genkit", "TypeScript", "web developer"],
+  authors: [{ name: "Shreyan S." }],
+  verification: {
+    google: "bHoyyZpyrIWXgnulzKPyO3o08hajP44MbyV-5v2I3nk",
+  },
+  openGraph: {
+    title: "Shreyan.AI - Software Engineer Portfolio",
+    description: "Explore Shreyan's portfolio of AI-powered applications and modern web development projects.",
+    url: "https://shreyan.site",
+    siteName: "Shreyan.AI",
+    images: [
+      {
+        url: 'https://shreyan.site/og-image.png', // Must be an absolute URL
+        width: 1200,
+        height: 630,
+      },
+    ],
+    locale: 'en_US',
+    type: 'website',
+  },
 };
 
 export default function RootLayout({
