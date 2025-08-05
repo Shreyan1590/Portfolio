@@ -1,14 +1,9 @@
-import { products } from "@/lib/product-data";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
 import Link from "next/link";
 
 export function EcommerceHero() {
-    const featuredProduct = products.find(p => p.id === "2"); // Nova Smart Watch
-
-    if (!featuredProduct) return null;
-
     return (
         <div className="relative rounded-lg overflow-hidden mb-24">
             <div className="absolute inset-0 w-full h-full">
@@ -23,30 +18,20 @@ export function EcommerceHero() {
                  <div className="absolute inset-0 bg-gradient-to-r from-background via-background/50 to-transparent" />
             </div>
             <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-                <div className="relative grid md:grid-cols-2 gap-8 items-center py-12 md:py-24">
-                    <div>
+                <div className="relative grid md:grid-cols-2 gap-8 items-center py-20 md:py-32 text-center md:text-left">
+                    <div className="md:col-span-2">
                         <h1 className="text-4xl sm:text-5xl font-headline font-bold text-primary mb-4">
-                            {featuredProduct.name}
+                           The Future of Tech is Here
                         </h1>
-                        <p className="text-lg text-muted-foreground mb-8">
-                            Stay connected and track your fitness with the most advanced smartwatch on the market. Precision, style, and intelligence—all on your wrist.
+                        <p className="text-lg text-muted-foreground mb-8 max-w-2xl mx-auto md:mx-0">
+                            Welcome to QuantumLeap, your destination for the latest and greatest in cutting-edge gadgets. Discover innovation, quality, and style in every product.
                         </p>
                         <Button asChild size="lg">
-                            <Link href={`/projects/quantumleap-ecommerce/${featuredProduct.id}`}>
-                                Learn More
+                            <Link href="#new-arrivals">
+                                Shop All Products
                                 <ArrowRight className="ml-2 h-5 w-5" />
                             </Link>
                         </Button>
-                    </div>
-                     <div className="relative h-80 w-full">
-                         <Image
-                            src={featuredProduct.image}
-                            alt={featuredProduct.name}
-                            layout="fill"
-                            objectFit="contain"
-                            className="drop-shadow-[0_20px_20px_rgba(var(--primary-rgb),0.2)]"
-                            data-ai-hint={featuredProduct.aiHint}
-                         />
                     </div>
                 </div>
             </div>

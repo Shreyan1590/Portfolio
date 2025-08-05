@@ -21,7 +21,7 @@ export default function QuantumLeapEcommercePage() {
 
         <EcommerceCategories />
 
-        <div className="text-center mb-12 mt-24">
+        <div id="new-arrivals" className="text-center mb-12 mt-24">
             <h2 className="text-3xl font-headline font-bold mb-2">New Arrivals</h2>
             <p className="text-muted-foreground max-w-2xl mx-auto">Check out the latest in cutting-edge tech. Click on any product to see a live demo of our AI-powered description generator.</p>
         </div>
