@@ -1,12 +1,29 @@
+
 "use client";
 
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Download } from "lucide-react";
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 
 const StarryBackground = () => {
     const starCount = 100;
-    
+    const [stars, setStars] = useState<React.CSSProperties[]>([]);
+
+    useEffect(() => {
+        const generatedStars = Array.from({ length: starCount }).map(() => {
+            const size = Math.ceil(Math.random() * 3);
+            return {
+                left: `${Math.random() * 100}%`,
+                top: `${Math.random() * 100}%`,
+                width: `${size}px`,
+                height: `${size}px`,
+                animationDelay: `${Math.random() * 8}s`,
+                animationDuration: `${4 + Math.random() * 6}s`,
+            };
+        });
+        setStars(generatedStars);
+    }, []);
+
     return (
         <div className="absolute inset-0 z-0 overflow-hidden">
              <style jsx>{`
@@ -16,25 +33,15 @@ const StarryBackground = () => {
                     border-radius: 50%;
                     animation: move linear infinite;
                 }
-                .star.star-1 { width: 1px; height: 1px; }
-                .star.star-2 { width: 2px; height: 2px; }
-                .star.star-3 { width: 3px; height: 3px; }
 
                 @keyframes move {
                     from { transform: translateY(0); opacity: 1; }
                     to { transform: translateY(-100px); opacity: 0; }
                 }
             `}</style>
-             {Array.from({ length: starCount }).map((_, i) => {
-                const size = Math.ceil(Math.random() * 3);
-                const style = {
-                    left: `${Math.random() * 100}%`,
-                    top: `${Math.random() * 100}%`,
-                    animationDelay: `${Math.random() * 8}s`,
-                    animationDuration: `${4 + Math.random() * 6}s`,
-                };
-                return <div key={i} className={`star star-${size}`} style={style}></div>;
-            })}
+             {stars.map((style, i) => (
+                <div key={i} className="star" style={style}></div>
+             ))}
         </div>
     );
 };
