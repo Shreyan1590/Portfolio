@@ -10,13 +10,13 @@ export function AboutSection() {
           </h2>
           <div className="space-y-4 text-muted-foreground text-lg">
             <p>
-              I'm a results-oriented Software Engineer with a passion for developing scalable, high-impact web applications and AI-powered features. With a solid background in full-stack development, I excel at architecting and implementing robust solutions from the ground up.
+              I am an 18-year-old B.Tech student at Saveetha Institute of Medical And Technical Sciences. I really enjoy solving problems and making things pretty and easy to use. I can't stop learning new things; the more, the better.
             </p>
             <p>
-              My expertise lies in the MERN stack, complemented by extensive experience with modern frameworks like Next.js and Python for backend and AI development. I'm driven by a desire to continuously learn and apply new technologies to solve real-world problems, always aiming for clean, efficient, and maintainable code.
+              With over 2 years of experience in Web Development, I've helped startups and enterprises build scalable, performant applications that deliver real business value.
             </p>
             <p>
-              Beyond the code, I'm a strategic thinker and a collaborative team player. I'm adept at bridging the gap between technical and business requirements to deliver products that not only function flawlessly but also drive user engagement and achieve business goals.
+             My approach combines technical excellence with user-centered design principles to create solutions that are both powerful and intuitive.
             </p>
           </div>
         </div>
