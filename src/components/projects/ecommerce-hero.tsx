@@ -8,7 +8,8 @@ export function EcommerceHero() {
         <div className="relative rounded-lg overflow-hidden mb-24">
             <div className="absolute inset-0 w-full h-full">
                 <Image
-                    src="https://placehold.co/1200x500.png"
+                    src="https://placehold.co/1200x500/1a020d/34560%
+45.png?text="
                     alt="Abstract background for featured product"
                     layout="fill"
                     objectFit="cover"
