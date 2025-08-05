@@ -1,35 +1,50 @@
 "use client"
 
+import { useState } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { BarChart2, PieChart } from "lucide-react";
-import { Bar, BarChart, CartesianGrid, ResponsiveContainer, XAxis, YAxis, Tooltip, Legend, Pie } from "recharts";
+import { BarChart2, PieChart, RefreshCw } from "lucide-react";
+import { Bar, BarChart, CartesianGrid, ResponsiveContainer, XAxis, YAxis, Tooltip, Legend, Pie, Cell } from "recharts";
 import { ProjectPageHeader } from "@/components/projects/project-page-header";
+import { Button } from '@/components/ui/button';
 
-const salesData = [
-  { name: 'Jan', revenue: 4000, profit: 2400 },
-  { name: 'Feb', revenue: 3000, profit: 1398 },
-  { name: 'Mar', revenue: 5000, profit: 9800 },
-  { name: 'Apr', revenue: 4780, profit: 3908 },
-  { name: 'May', revenue: 5890, profit: 4800 },
-  { name: 'Jun', revenue: 4390, profit: 3800 },
-];
+const generateSalesData = () => {
+    const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'];
+    return months.map(month => ({
+        name: month,
+        revenue: Math.floor(Math.random() * 5000) + 2000,
+        profit: Math.floor(Math.random() * 3000) + 1000,
+    }));
+};
 
-const categoryData = [
-  { name: 'Electronics', value: 400 },
-  { name: 'Clothing', value: 300 },
-  { name: 'Groceries', value: 300 },
-  { name: 'Books', value: 200 },
-];
+const generateCategoryData = () => {
+    const categories = ['Electronics', 'Clothing', 'Groceries', 'Books', 'Home Goods'];
+    return categories.map(cat => ({
+        name: cat,
+        value: Math.floor(Math.random() * 500) + 100,
+    }));
+};
+
+const COLORS = ['hsl(var(--primary))', 'hsl(var(--accent))', '#FFBB28', '#FF8042', '#00C49F'];
 
 export default function DataVizDashboardPage() {
-  const project = {
-    title: "DataViz Dashboard",
+  const [salesData, setSalesData] = useState(generateSalesData());
+  const [categoryData, setCategoryData] = useState(generateCategoryData());
+
+  const refreshData = () => {
+      setSalesData(generateSalesData());
+      setCategoryData(generateCategoryData());
   };
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-[#1a020d] via-background to-[#0d021a]">
-     <ProjectPageHeader title={project.title} />
+     <ProjectPageHeader title="DataViz Dashboard" />
       <main className="container mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <div className="mb-8 flex justify-end">
+            <Button onClick={refreshData}>
+                <RefreshCw className="mr-2 h-4 w-4" />
+                Refresh Data
+            </Button>
+        </div>
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
           <Card className="bg-card/50 border-border/50 backdrop-blur-sm">
             <CardHeader>
@@ -48,8 +63,8 @@ export default function DataVizDashboardPage() {
                     }}
                   />
                   <Legend />
-                  <Bar dataKey="revenue" fill="hsl(var(--primary))" />
-                  <Bar dataKey="profit" fill="hsl(var(--accent))" />
+                  <Bar dataKey="revenue" fill="hsl(var(--primary))" radius={[4, 4, 0, 0]} />
+                  <Bar dataKey="profit" fill="hsl(var(--accent))" radius={[4, 4, 0, 0]} />
                 </BarChart>
               </ResponsiveContainer>
             </CardContent>
@@ -61,7 +76,20 @@ export default function DataVizDashboardPage() {
             <CardContent>
               <ResponsiveContainer width="100%" height={300}>
                 <PieChart>
-                  <Pie data={categoryData} dataKey="value" nameKey="name" cx="50%" cy="50%" outerRadius={100} fill="hsl(var(--primary))" label={{ fill: "hsl(var(--primary-foreground))" }} />
+                  <Pie 
+                    data={categoryData} 
+                    dataKey="value" 
+                    nameKey="name" 
+                    cx="50%" 
+                    cy="50%" 
+                    outerRadius={100} 
+                    labelLine={false}
+                    label={{ fill: "hsl(var(--foreground))", fontSize: 12 }}
+                    >
+                    {categoryData.map((entry, index) => (
+                        <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+                    ))}
+                  </Pie>
                   <Tooltip
                      contentStyle={{
                       backgroundColor: "hsl(var(--card))",

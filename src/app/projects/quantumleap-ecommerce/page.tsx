@@ -3,11 +3,13 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Bot, Sparkles, Loader2, ShoppingCart, Star } from "lucide-react";
+import { Bot, Sparkles, Loader2, ShoppingCart, Star, CheckSquare, Square } from "lucide-react";
 import Image from "next/image";
 import { useToast } from "@/hooks/use-toast";
 import { handleGenerateProductDescription } from "@/app/actions";
 import { ProjectPageHeader } from "@/components/projects/project-page-header";
+import { Label } from "@/components/ui/label";
+import { Checkbox } from "@/components/ui/checkbox";
 
 const product = {
     name: "Aura Pro Wireless Earbuds",
@@ -15,18 +17,33 @@ const product = {
     price: 149.99,
     rating: 4.8,
     reviews: 256,
-    features: ["Active Noise Cancellation", "30-Hour Battery Life", "IPX7 Waterproof", "Bluetooth 5.2", "Wireless Charging"],
+    features: ["Active Noise Cancellation", "30-Hour Battery Life", "IPX7 Waterproof", "Bluetooth 5.2", "Wireless Charging", "Crystal-Clear Calls", "Customizable EQ"],
     aiHint: "sleek wireless earbuds"
 }
 
 export default function QuantumLeapEcommercePage() {
-  const [description, setDescription] = useState("Click the button below to generate a new product description with AI!");
+  const [description, setDescription] = useState("Select the features you want to highlight and click the button below to generate a new product description with AI!");
   const [isLoading, setIsLoading] = useState(false);
+  const [selectedFeatures, setSelectedFeatures] = useState<string[]>(product.features);
   const { toast } = useToast();
 
+  const handleFeatureToggle = (feature: string) => {
+    setSelectedFeatures(prev =>
+      prev.includes(feature) ? prev.filter(f => f !== feature) : [...prev, feature]
+    );
+  };
+
   async function generateDescription() {
+    if (selectedFeatures.length === 0) {
+        toast({
+            variant: "destructive",
+            title: "No Features Selected",
+            description: "Please select at least one feature to generate a description.",
+        });
+        return;
+    }
     setIsLoading(true);
-    const response = await handleGenerateProductDescription({ productName: product.name, features: product.features });
+    const response = await handleGenerateProductDescription({ productName: product.name, features: selectedFeatures });
 
     if (response.error) {
       toast({
@@ -71,11 +88,30 @@ export default function QuantumLeapEcommercePage() {
                     </div>
                     <p className="text-4xl font-bold text-primary mb-6">${product.price}</p>
                     
+                    <div className="mb-6">
+                        <h3 className="font-headline text-lg mb-3">Highlight Features:</h3>
+                        <div className="grid grid-cols-2 gap-2">
+                            {product.features.map(feature => (
+                                <div key={feature} className="flex items-center space-x-2">
+                                <Checkbox 
+                                    id={feature} 
+                                    checked={selectedFeatures.includes(feature)} 
+                                    onCheckedChange={() => handleFeatureToggle(feature)}
+                                />
+                                <Label htmlFor={feature} className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
+                                    {feature}
+                                </Label>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+
+
                     <Card className="bg-secondary/20 mb-6">
                         <CardHeader>
                             <CardTitle className="flex items-center gap-2 font-headline text-lg"><Bot/> AI-Generated Description</CardTitle>
                         </CardHeader>
-                        <CardContent>
+                        <CardContent className="min-h-[6rem]">
                             {isLoading ? (
                                 <div className="flex items-center gap-2 text-muted-foreground">
                                     <Loader2 className="h-4 w-4 animate-spin" />

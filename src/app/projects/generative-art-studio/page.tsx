@@ -8,7 +8,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Form, FormControl, FormField, FormItem, FormMessage } from "@/components/ui/form";
-import { Bot, Sparkles, Loader2 } from "lucide-react";
+import { Bot, Sparkles, Loader2, Dices } from "lucide-react";
 import Image from "next/image";
 import { handleGenerateArt } from "@/app/actions";
 import { useToast } from "@/hooks/use-toast";
@@ -17,6 +17,16 @@ import { ProjectPageHeader } from "@/components/projects/project-page-header";
 const formSchema = z.object({
   prompt: z.string().min(10, "Please enter a prompt with at least 10 characters."),
 });
+
+const randomPrompts = [
+    "A synthwave style sunset over a retro-futuristic city",
+    "An oil painting of a majestic lion wearing a crown in a dark, moody forest",
+    "A cute, fluffy creature exploring a vibrant alien jungle, cinematic lighting",
+    "An astronaut discovering a glowing, ancient portal on a desolate moon",
+    "A detailed watercolor illustration of a magical bookstore overflowing with books",
+    "Photorealistic image of a vintage car from the 1950s driving on a coastal road at sunrise",
+    "An epic fantasy battle between a knight and a dragon on a snowy mountain peak"
+];
 
 export default function GenerativeArtStudioPage() {
   const [generatedImage, setGeneratedImage] = useState<string | null>(null);
@@ -35,6 +45,11 @@ export default function GenerativeArtStudioPage() {
       prompt: "",
     },
   });
+
+  const surpriseMe = () => {
+    const randomPrompt = randomPrompts[Math.floor(Math.random() * randomPrompts.length)];
+    form.setValue("prompt", randomPrompt);
+  };
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
     setIsLoading(true);
@@ -86,19 +101,25 @@ export default function GenerativeArtStudioPage() {
                       </FormItem>
                     )}
                   />
-                  <Button type="submit" disabled={isLoading} className="w-full">
-                    {isLoading ? (
-                      <>
-                        <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                        Generating...
-                      </>
-                    ) : (
-                      <>
-                        <Sparkles className="mr-2 h-4 w-4" />
-                        Generate Image
-                      </>
-                    )}
-                  </Button>
+                  <div className="grid grid-cols-2 gap-2">
+                    <Button type="button" variant="outline" onClick={surpriseMe}>
+                        <Dices className="mr-2 h-4 w-4" />
+                        Surprise Me
+                    </Button>
+                    <Button type="submit" disabled={isLoading} >
+                        {isLoading ? (
+                        <>
+                            <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                            Generating...
+                        </>
+                        ) : (
+                        <>
+                            <Sparkles className="mr-2 h-4 w-4" />
+                            Generate Image
+                        </>
+                        )}
+                    </Button>
+                  </div>
                 </form>
               </Form>
             </CardContent>
