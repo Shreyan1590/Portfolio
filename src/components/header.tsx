@@ -38,8 +38,8 @@ export function Header() {
             </span>
           </a>
         </div>
-        <div className="hidden md:flex flex-1 items-center justify-end space-x-2 overflow-x-auto">
-          <nav className="flex gap-4 md:gap-6">
+        <div className="hidden md:flex flex-1 items-center justify-end">
+          <nav className="hidden md:flex gap-4 lg:gap-6 overflow-x-auto">
             {navLinks.map((link) => (
               <a
                 key={link.href}

@@ -25,7 +25,7 @@ export default function QuantumLeapEcommercePage() {
             <h2 className="text-3xl font-headline font-bold mb-2">New Arrivals</h2>
             <p className="text-muted-foreground max-w-2xl mx-auto">Check out the latest in cutting-edge tech. Click on any product to see a live demo of our AI-powered description generator.</p>
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
             {products.map((product) => (
             <Card key={product.id} className="flex flex-col overflow-hidden group hover:shadow-2xl hover:shadow-primary/20 transition-all duration-300 bg-card/50 hover:-translate-y-2 border-border/50 backdrop-blur-sm">
                 <CardHeader className="p-0">
