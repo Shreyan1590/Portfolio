@@ -1,16 +1,19 @@
 "use client";
 
 import { useState } from "react";
-import { Code, User, Briefcase, Bot, Mail, Menu, X, FileText } from "lucide-react";
+import { Code, User, Briefcase, Bot, Mail, Menu, X, FileText, Blocks, Handshake, Heart, MessageSquare } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetHeader, SheetTrigger, SheetClose, SheetTitle } from "@/components/ui/sheet";
 import Link from "next/link";
 
 const navLinks = [
   { href: "#about", label: "About", icon: User },
+  { href: "#services", label: "Services", icon: Blocks },
   { href: "#skills", label: "Skills", icon: Code },
   { href: "#experience", label: "Experience", icon: Briefcase },
   { href: "#projects", label: "Projects", icon: Bot },
+  { href: "#testimonials", label: "Testimonials", icon: Heart },
+  { href: "#blog", label: "Blog", icon: MessageSquare },
   { href: "#ai-tool", label: "AI Tools", icon: FileText },
   { href: "#contact", label: "Contact", icon: Mail },
 ];
