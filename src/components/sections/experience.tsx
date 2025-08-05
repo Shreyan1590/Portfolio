@@ -34,16 +34,17 @@ export function ExperienceSection() {
         Career Journey
       </h2>
       <div className="relative max-w-3xl mx-auto">
-        <div className="absolute left-1/2 -translate-x-1/2 h-full w-0.5 bg-gradient-to-b from-primary/50 via-accent/50 to-primary/50"></div>
+        <div className="absolute left-4 md:left-1/2 -translate-x-1/2 h-full w-0.5 bg-gradient-to-b from-primary/50 via-accent/50 to-primary/50"></div>
         {experienceData.map((item, index) => (
-          <div key={index} className="relative mb-12 flex items-center" style={{'justifyContent': index % 2 === 0 ? 'flex-start' : 'flex-end'}}>
-            <div className="absolute left-1/2 -translate-x-1/2 bg-background border-2 border-primary rounded-full p-2 z-10">
+          <div key={index} className="relative pl-12 md:pl-0 mb-12 flex items-center md:justify-center">
+            <div className="absolute left-4 md:left-1/2 -translate-x-1/2 bg-background border-2 border-primary rounded-full p-2 z-10">
               <Briefcase className="h-5 w-5 text-primary" />
             </div>
             <div
-              className={`w-[calc(50%-2rem)] p-6 bg-card rounded-lg shadow-lg border-l-4 ${
-                index % 2 === 0 ? "border-primary" : "border-accent text-right"
+              className={`md:w-[calc(50%-2rem)] p-6 bg-card rounded-lg shadow-lg border-l-4 md:border-l-0 ${
+                index % 2 === 0 ? "md:border-l-4 border-primary" : "md:border-r-4 md:text-right border-accent"
               }`}
+               style={{'marginLeft': index % 2 === 0 ? '0' : 'auto', 'marginRight': index % 2 === 0 ? 'auto' : '0'}}
             >
               <h3 className="text-xl font-headline font-semibold text-primary">{item.role}</h3>
               <p className="font-semibold text-foreground mb-1">{item.company}</p>

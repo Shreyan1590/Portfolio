@@ -1,6 +1,10 @@
 "use client";
 
-import { Code, User, Briefcase, Bot, Mail, Award, GraduationCap, Star, BookOpen, GitFork, Lightbulb, Rocket, Trophy, Rss } from "lucide-react";
+import { useState } from "react";
+import { Code, User, Briefcase, Bot, Mail, Award, GraduationCap, Star, BookOpen, GitFork, Lightbulb, Rocket, Trophy, Rss, Menu, X } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Sheet, SheetContent, SheetHeader, SheetTrigger, SheetClose } from "@/components/ui/sheet";
+import Link from "next/link";
 
 const navLinks = [
   { href: "#about", label: "About", icon: User },
@@ -21,6 +25,8 @@ const navLinks = [
 ];
 
 export function Header() {
+    const [isSheetOpen, setIsSheetOpen] = useState(false);
+
   return (
     <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/80 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div className="container flex h-16 max-w-screen-2xl items-center">
@@ -32,7 +38,7 @@ export function Header() {
             </span>
           </a>
         </div>
-        <div className="flex flex-1 items-center justify-end space-x-2 overflow-x-auto">
+        <div className="hidden md:flex flex-1 items-center justify-end space-x-2 overflow-x-auto">
           <nav className="flex gap-4 md:gap-6">
             {navLinks.map((link) => (
               <a
@@ -44,6 +50,46 @@ export function Header() {
               </a>
             ))}
           </nav>
+        </div>
+         <div className="flex md:hidden flex-1 items-center justify-end">
+          <Sheet open={isSheetOpen} onOpenChange={setIsSheetOpen}>
+            <SheetTrigger asChild>
+                <Button variant="ghost" size="icon">
+                    <Menu className="h-6 w-6" />
+                    <span className="sr-only">Open Menu</span>
+                </Button>
+            </SheetTrigger>
+            <SheetContent side="right" className="w-full max-w-xs">
+                <SheetHeader className="flex flex-row justify-between items-center">
+                     <a href="#" className="flex items-center space-x-2">
+                        <Bot className="h-6 w-6 text-primary" />
+                        <span className="font-bold font-headline text-lg">
+                        Shreyan.AI
+                        </span>
+                    </a>
+                    <SheetClose asChild>
+                       <Button variant="ghost" size="icon">
+                            <X className="h-6 w-6" />
+                            <span className="sr-only">Close Menu</span>
+                        </Button>
+                    </SheetClose>
+                </SheetHeader>
+                <nav className="mt-8 flex flex-col gap-4">
+                {navLinks.map((link) => (
+                    <SheetClose asChild key={link.href}>
+                        <Link
+                            href={link.href}
+                            className="flex items-center gap-2 text-lg font-medium text-foreground/80 hover:text-primary transition-colors"
+                            onClick={() => setIsSheetOpen(false)}
+                        >
+                            <link.icon className="h-5 w-5" />
+                            {link.label}
+                        </Link>
+                    </SheetClose>
+                ))}
+                </nav>
+            </SheetContent>
+          </Sheet>
         </div>
       </div>
     </header>

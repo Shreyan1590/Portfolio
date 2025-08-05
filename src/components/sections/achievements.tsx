@@ -31,7 +31,7 @@ export function AchievementsSection() {
       <h2 className="text-3xl md:text-4xl font-headline font-bold text-center mb-12 bg-clip-text text-transparent bg-gradient-to-r from-primary to-accent">
         Awards & Recognition
       </h2>
-      <div className="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8">
+      <div className="max-w-4xl mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
         {achievementsData.map((achievement) => (
           <Card key={achievement.title} className="bg-card/50 border-border/50 backdrop-blur-sm text-center flex flex-col items-center p-6 transition-all duration-300 hover:border-primary hover:shadow-2xl hover:shadow-primary/20">
             <CardHeader className="p-0 mb-4">
