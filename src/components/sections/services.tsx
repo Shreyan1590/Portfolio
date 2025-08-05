@@ -1,3 +1,4 @@
+
 import { Rocket, Code, BrainCircuit } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { useInView } from "react-intersection-observer";

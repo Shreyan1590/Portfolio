@@ -1,3 +1,4 @@
+
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { ExternalLink, BarChart, Users, Zap } from "lucide-react";

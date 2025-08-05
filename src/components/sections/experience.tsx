@@ -1,3 +1,4 @@
+
 import { BookOpen, GraduationCap, School } from "lucide-react";
 import { useInView } from "react-intersection-observer";
 import { cn } from "@/lib/utils";

@@ -1,3 +1,4 @@
+
 import { CoverLetterForm } from "@/components/cover-letter-form";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Bot, FileText, Voicemail } from "lucide-react";

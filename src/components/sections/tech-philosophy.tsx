@@ -1,3 +1,4 @@
+
 import { CheckCircle, Zap, Scale } from "lucide-react";
 import { useInView } from "react-intersection-observer";
 import { cn } from "@/lib/utils";
