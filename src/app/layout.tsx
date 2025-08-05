@@ -5,7 +5,7 @@ import "./globals.css";
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://shreyan.site'),
-  title: "Shreyan.AI - Software Engineer Portfolio",
+  title: "Shreyan | Developer & Designer",
   description: "Welcome to Shreyan's portfolio showcasing expertise in AI solutions, web development, and interactive UI/UX design. Explore innovative projects and creative solutions.",
   keywords: ["Shreyan portfolio", "AI engineer", "full-stack developer", "Next.js", "Genkit", "TypeScript", "web developer"],
   authors: [{ name: "Shreyan S." }],
@@ -13,10 +13,10 @@ export const metadata: Metadata = {
     google: "bHoyyZpyrIWXgnulzKPyO3o08hajP44MbyV-5v2I3nk",
   },
   openGraph: {
-    title: "Shreyan.AI - Software Engineer Portfolio",
+    title: "Shreyan | Developer & Designer",
     description: "Explore Shreyan's portfolio of AI-powered applications and modern web development projects.",
     url: "https://shreyan.site",
-    siteName: "Shreyan.AI",
+    siteName: "Shreyan's Portfolio",
     images: [
       {
         url: 'https://shreyan.site/og-image.png', // Must be an absolute URL
