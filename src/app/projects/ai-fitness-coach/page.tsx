@@ -130,29 +130,6 @@ const hardcodedPlans: Record<string, Record<string, Plan>> = {
 
 function PlanDisplay({ rawText }: { rawText: string; }) {
   const animatedText = useTypewriter(rawText, 10);
-  const [showLoader, setShowLoader] = useState(true);
-
-  useEffect(() => {
-    // Determine a reasonable time to show the loader before revealing the content
-    const loaderTime = Math.min(rawText.length * 5, 1000); // e.g. 5ms per char, max 1s
-    if (rawText) {
-      setShowLoader(true);
-      const timer = setTimeout(() => {
-        setShowLoader(false);
-      }, loaderTime);
-      return () => clearTimeout(timer);
-    } else {
-      setShowLoader(false);
-    }
-  }, [rawText]);
-
-  if (showLoader) {
-    return (
-      <div className="flex items-center justify-center min-h-[200px]">
-        <Loader2 className="h-8 w-8 animate-spin text-primary" />
-      </div>
-    );
-  }
 
   return (
     <div className="prose prose-sm dark:prose-invert max-w-none font-body">
@@ -181,14 +158,14 @@ export default function AiFitnessCoachPage() {
     const goalTitle = values.goal.replace('-', ' ').replace(/\b\w/g, l => l.toUpperCase());
     
     let text = `
-<h3 class="text-xl font-headline font-bold text-primary mb-4 flex items-center gap-2"><span class="text-2xl">📋</span> Your Custom Fitness Plan</h3>
+<h3 class="text-xl font-headline font-bold text-primary mb-4 flex items-center gap-2">📋 Your Custom Fitness Plan</h3>
 <div class="grid grid-cols-3 gap-4 mb-6 text-center">
   <div class="bg-primary/10 p-3 rounded-lg"><div class="font-bold text-primary">${goalTitle}</div><div class="text-xs text-muted-foreground">Goal</div></div>
   <div class="bg-primary/10 p-3 rounded-lg"><div class="font-bold text-primary">${values.level.charAt(0).toUpperCase() + values.level.slice(1)}</div><div class="text-xs text-muted-foreground">Level</div></div>
   <div class="bg-primary/10 p-3 rounded-lg"><div class="font-bold text-primary">${values.duration} mins</div><div class="text-xs text-muted-foreground">Duration</div></div>
 </div>
 
-<h4 class="text-lg font-headline font-semibold text-accent mb-3 flex items-center gap-2"><span class="text-xl">💪</span> Workout Plan</h4>
+<h4 class="text-lg font-headline font-semibold text-accent mb-3 flex items-center gap-2">💪 Workout Plan</h4>
 <table>
   <thead>
     <tr>
@@ -204,7 +181,7 @@ export default function AiFitnessCoachPage() {
 </table>
 ${planData.cardio ? `<p class="mt-4"><strong class="font-semibold text-accent">Cardio:</strong> ${planData.cardio}</p>` : ''}
 
-<h4 class="text-lg font-headline font-semibold text-accent mt-6 mb-3 flex items-center gap-2"><span class="text-xl">🥗</span> Meal Suggestions</h4>
+<h4 class="text-lg font-headline font-semibold text-accent mt-6 mb-3 flex items-center gap-2">🥗 Meal Suggestions</h4>
 <ul>
   <li><strong class="font-semibold text-primary/90">Breakfast:</strong> ${planData.meals.breakfast}</li>
   <li><strong class="font-semibold text-primary/90">Lunch:</strong> ${planData.meals.lunch}</li>
