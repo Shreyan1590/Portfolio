@@ -1,3 +1,4 @@
+
 import { Header } from "@/components/header";
 import { Footer } from "@/components/footer";
 import { HeroSection } from "@/components/sections/hero";
@@ -20,7 +21,9 @@ export default function Home() {
       <Header />
       <main className="flex-1">
         <HeroSection />
-        <AboutSection />
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+          <AboutSection />
+        </div>
         <ServicesSection />
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <SkillsSection />
