@@ -9,6 +9,7 @@
  */
 
 import {ai} from '@/ai/genkit';
+import {googleAI} from '@genkit-ai/googleai';
 import {z} from 'genkit';
 
 const GenerateFitnessPlanInputSchema = z.object({
@@ -56,7 +57,7 @@ const generateFitnessPlanFlow = ai.defineFlow(
   },
   async input => {
     const {output} = await ai.generate({
-      model: 'googleai/gemini-1.5-flash-latest',
+      model: googleAI.model('gemini-1.5-flash-latest'),
       prompt: prompt.prompt,
       input,
       output: {

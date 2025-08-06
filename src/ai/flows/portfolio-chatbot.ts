@@ -9,6 +9,7 @@
  */
 
 import {ai} from '@/ai/genkit';
+import {googleAI} from '@genkit-ai/googleai';
 import {z} from 'genkit';
 
 // --- Static Portfolio Context ---
@@ -83,7 +84,7 @@ const portfolioChatFlow = ai.defineFlow(
   },
   async input => {
     const {output} = await ai.generate({
-      model: 'googleai/gemini-1.5-flash-latest',
+      model: googleAI.model('gemini-1.5-flash-latest'),
       history: input.history || [],
       prompt: `You are Shreyan's AI assistant, a friendly and helpful chatbot embedded on his portfolio website. Your goal is to answer questions from visitors about Shreyan, his skills, projects, and experience.
 

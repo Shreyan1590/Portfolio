@@ -9,6 +9,7 @@
  */
 
 import {ai} from '@/ai/genkit';
+import {googleAI} from '@genkit-ai/googleai';
 import {z} from 'genkit';
 
 const AnalyzeCodeInputSchema = z.object({
@@ -38,7 +39,7 @@ const analyzeCodeFlow = ai.defineFlow(
   },
   async input => {
     const {output} = await ai.generate({
-      model: 'googleai/gemini-1.5-flash-latest',
+      model: googleAI.model('gemini-1.5-flash-latest'),
       prompt: `You are an expert programmer and code reviewer.
 
   Analyze the following ${input.language} code snippet. Provide a detailed analysis covering these points:

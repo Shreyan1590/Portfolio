@@ -9,6 +9,7 @@
  */
 
 import {ai} from '@/ai/genkit';
+import {googleAI} from '@genkit-ai/googleai';
 import {z} from 'genkit';
 
 const GenerateProductDescriptionInputSchema = z.object({
@@ -43,7 +44,7 @@ const prompt = ai.definePrompt({
   - {{{this}}}
   {{/each}}
   `,
-  model: 'googleai/gemini-1.5-flash-latest',
+  model: googleAI.model('gemini-1.5-flash-latest'),
 });
 
 const generateProductDescriptionFlow = ai.defineFlow(
