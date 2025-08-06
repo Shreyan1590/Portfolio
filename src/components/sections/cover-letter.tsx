@@ -33,7 +33,7 @@ export function CoverLetterSection() {
         </div>
         <Tabs defaultValue="cover-letter" className="max-w-4xl mx-auto">
           <TabsList className="grid w-full grid-cols-4">
-             <TabsTrigger value="greeter">
+            <TabsTrigger value="greeter">
               <Hand className="mr-2 h-4 w-4" />
               Greeter
             </TabsTrigger>
@@ -44,7 +44,7 @@ export function CoverLetterSection() {
             <TabsTrigger value="resume-analyzer">
               <Bot className="mr-2 h-4 w-4" />
               Resume Analyzer
-            </Tabs.Trigger>
+            </TabsTrigger>
             <TabsTrigger value="tts">
               <Voicemail className="mr-2 h-4 w-4" />
               Text-to-Speech
