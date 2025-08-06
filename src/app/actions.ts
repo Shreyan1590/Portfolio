@@ -32,6 +32,10 @@ import {
   portfolioChat,
   type PortfolioChatInput,
 } from "@/ai/flows/portfolio-chatbot";
+import {
+  helloGenkit,
+  type HelloGenkitInput,
+} from "@/ai/flows/hello-genkit";
 
 
 export async function handleGenerateCoverLetter(input: GenerateCoverLetterInput) {
@@ -143,5 +147,19 @@ export async function handlePortfolioChat(input: PortfolioChatInput) {
         console.error(e);
         const errorMessage = e instanceof Error ? e.message : "An unknown error occurred.";
         return { error: `Failed to get a response from the chatbot: ${errorMessage}. Please try again later.` };
+    }
+}
+
+export async function handleHelloGenkit(input: HelloGenkitInput) {
+    try {
+        const output = await helloGenkit(input);
+        if (!output.greeting) {
+            return { error: "The AI did not return a greeting. Please try again." };
+        }
+        return { greeting: output.greeting };
+    } catch (e) {
+        console.error(e);
+        const errorMessage = e instanceof Error ? e.message : "An unknown error occurred.";
+        return { error: `Failed to get a greeting from the AI: ${errorMessage}. Please try again later.` };
     }
 }

@@ -1,12 +1,13 @@
 
 import { CoverLetterForm } from "@/components/cover-letter-form";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Bot, FileText, Voicemail } from "lucide-react";
+import { Bot, FileText, Hand, Voicemail } from "lucide-react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { ResumeAnalyzerForm } from "../resume-analyzer-form";
 import { TextToSpeechForm } from "../text-to-speech-form";
 import { useInView } from "react-intersection-observer";
 import { cn } from "@/lib/utils";
+import { GenkitGreeterForm } from "../genkit-greeter-form";
 
 export function CoverLetterSection() {
     const { ref, inView } = useInView({
@@ -31,7 +32,11 @@ export function CoverLetterSection() {
           </p>
         </div>
         <Tabs defaultValue="cover-letter" className="max-w-4xl mx-auto">
-          <TabsList className="grid w-full grid-cols-3">
+          <TabsList className="grid w-full grid-cols-4">
+             <TabsTrigger value="greeter">
+              <Hand className="mr-2 h-4 w-4" />
+              Greeter
+            </TabsTrigger>
             <TabsTrigger value="cover-letter">
               <FileText className="mr-2 h-4 w-4" />
               Cover Letter
@@ -39,12 +44,23 @@ export function CoverLetterSection() {
             <TabsTrigger value="resume-analyzer">
               <Bot className="mr-2 h-4 w-4" />
               Resume Analyzer
-            </TabsTrigger>
+            </Tabs.Trigger>
             <TabsTrigger value="tts">
               <Voicemail className="mr-2 h-4 w-4" />
               Text-to-Speech
             </TabsTrigger>
           </TabsList>
+          <TabsContent value="greeter">
+            <Card className="bg-secondary/20">
+              <CardHeader>
+                <CardTitle className="font-headline text-xl">Genkit Greeter</CardTitle>
+                <CardDescription>A simple 'Hello World' for Genkit. Enter a name and the AI will generate a creative greeting.</CardDescription>
+              </CardHeader>
+              <CardContent>
+                <GenkitGreeterForm />
+              </CardContent>
+            </Card>
+          </TabsContent>
           <TabsContent value="cover-letter">
             <Card className="bg-secondary/20">
               <CardHeader>
