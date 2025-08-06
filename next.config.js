@@ -1,4 +1,6 @@
 /** @type {import('next').NextConfig} */
+const Dotenv = require('dotenv-webpack');
+
 const nextConfig = {
   // config options here
   typescript: {
@@ -25,9 +27,7 @@ const nextConfig = {
   allowedDevOrigins: [
     'https://*.cluster-44kx2eiocbhe2tyk3zoyo3ryuo.cloudworkstations.dev',
   ],
-  webpack: (config, { isServer }) => {
-    // Add dotenv-webpack
-    const Dotenv = require('dotenv-webpack');
+  webpack: (config) => {
     config.plugins.push(new Dotenv({
       path: './.env',
       systemvars: true,
