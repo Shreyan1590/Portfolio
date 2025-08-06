@@ -24,9 +24,6 @@ const nextConfig = {
     // preview iframe.
     
   },
-  allowedDevOrigins: [
-    'https://*.cluster-44kx2eiocbhe2tyk3zoyo3ryuo.cloudworkstations.dev',
-  ],
   webpack: (config) => {
     config.plugins.push(new Dotenv({
       path: './.env',
