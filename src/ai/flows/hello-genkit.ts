@@ -9,6 +9,7 @@
  */
 
 import {ai} from '@/ai/genkit';
+import {googleAI} from '@genkit-ai/googleai';
 import {z} from 'genkit';
 
 const HelloGenkitInputSchema = z.object({
@@ -37,6 +38,7 @@ const helloGenkitFlow = ai.defineFlow(
   },
   async input => {
     const {output} = await ai.generate({
+      model: googleAI.model('gemini-1.5-flash-latest'),
       prompt: `You are a friendly AI assistant. Say hello to ${input.name} in a creative and friendly way.`,
       output: {
         schema: HelloGenkitOutputSchema,

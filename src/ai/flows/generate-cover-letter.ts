@@ -9,6 +9,7 @@
  */
 
 import {ai} from '@/ai/genkit';
+import {googleAI} from '@genkit-ai/googleai';
 import {z} from 'genkit';
 
 const GenerateCoverLetterInputSchema = z.object({
@@ -54,7 +55,14 @@ const generateCoverLetterFlow = ai.defineFlow(
     outputSchema: GenerateCoverLetterOutputSchema,
   },
   async input => {
-    const {output} = await prompt(input);
+     const {output} = await ai.generate({
+      model: googleAI.model('gemini-1.5-flash-latest'),
+      prompt: prompt.prompt,
+      input,
+      output: {
+        schema: prompt.output.schema,
+      },
+    });
     return output!;
   }
 );
