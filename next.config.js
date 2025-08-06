@@ -25,6 +25,15 @@ const nextConfig = {
   allowedDevOrigins: [
     'https://*.cluster-44kx2eiocbhe2tyk3zoyo3ryuo.cloudworkstations.dev',
   ],
+  webpack: (config, { isServer }) => {
+    // Add dotenv-webpack
+    const Dotenv = require('dotenv-webpack');
+    config.plugins.push(new Dotenv({
+      path: './.env',
+      systemvars: true,
+    }));
+    return config;
+  },
 };
 
 module.exports = nextConfig;
