@@ -64,8 +64,5 @@
     "typescript": "5.5.3",
     "wav": "^1.0.2",
     "zod": "^3.23.8"
-  },
-  "devDependencies": {
-    "@types/wav": "^1.0.3"
   }
 }
